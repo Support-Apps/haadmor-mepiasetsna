@@ -256,7 +256,7 @@ input[type=range].volSlider::-ms-thumb{width:10px;height:10px;border-radius:50%;
       <button class="btnPri" onclick="finish()">סִיּוּם הַתַּרְגִּיל</button>
     </div>
     <div style="text-align:center;margin-top:10px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
-      <button class="btnGh" onclick="reSpeak()">&#128266; חֲזָרָה עַל הַהַנְחָיָה</button>
+      <button class="btnGh" onclick="reSpeak()" id="btnSpeak" style="border:1px solid var(--pink-mid);padding:9px 18px;border-radius:20px">&#128266; הַפְעָלַת הַהַנְחָיָה הַקּוֹלִית</button>
       <button class="btnSpeed" id="btnSpd" onclick="cycleSpeed()">&#127932; מַהִירוּת: רָגִיל</button>
     </div>
 
@@ -647,12 +647,9 @@ function openEx(idx){
   go('sMed');
   running=false;
   document.getElementById('btnPP').innerHTML='&#9654;';
-  // הפעלת הניגון אוטומטית
-  
   if(nigunAudio){ nigunAudio.currentTime=0; nigunAudio.play(); nigunPlaying=true; setPlayerBtn('&#9646;&#9646;'); }
   setTimeout(function(){
     startTimer();
-    say(ex.sp);
   },1100);
 }
 
