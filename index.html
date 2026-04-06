@@ -264,22 +264,6 @@ input[type=range].volSlider::-ms-thumb{width:10px;height:10px;border-radius:50%;
         <button class="btnSpeed" id="btnSpd" onclick="cycleSpeed()">&#127932; מַהִירוּת: רָגִיל</button>
       </div>
     </div>
-
-    <!-- נגן ניגון במסך המדיטציה -->
-    <div style="max-width:320px;margin:18px auto 0">
-      <div class="playerBox">
-        <div class="playerLbl">🎵 הוֹרֵנִי ה' דַּרְכֶּךָ – נִיגּוּן הָאַדְמוֹ"ר</div>
-        <div class="playerRow">
-          <button class="btnPl" id="medBtnPl" onclick="toggleNigun('med')">&#9654;</button>
-          <div class="pTrackWrap">
-            <div class="pTrack" id="medTrack" onclick="seekNigun(event,'medTrack')">
-              <div class="pFill" id="medFill"></div>
-            </div>
-            <div class="pTime"><span id="medCur">0:00</span><span id="medDur">--:--</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -658,11 +642,12 @@ function openEx(idx){
 }
 
 function startExerciseNow(){
-  // מסתיר כפתור התחלה, מציג פקדי ריצה
   document.getElementById('btnStart').style.display='none';
   document.getElementById('ctrlRunning').style.display='block';
   startTimer();
-  setTimeout(function(){ say(EX[curEx].sp); }, 1000);
+  setTimeout(function(){
+    if(curEx>=0 && curEx<EX.length) say(EX[curEx].sp);
+  }, 1000);
 }
 
 // ── TIMER ──
