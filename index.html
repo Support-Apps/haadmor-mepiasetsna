@@ -252,12 +252,17 @@ input[type=range].volSlider::-ms-thumb{width:10px;height:10px;border-radius:50%;
       <div class="vSt" id="vSt"></div>
     </div>
     <div class="ctrl">
-      <button class="btnRnd" id="btnPP" onclick="togglePP()">&#9654;</button>
-      <button class="btnPri" onclick="finish()">סִיּוּם הַתַּרְגִּיל</button>
+      <button class="btnPri" id="btnStart" onclick="startExerciseNow()" style="font-size:15px;padding:16px 44px;border-color:var(--pink-dp);color:var(--pink-dp)">&#9654; הַתְחָלַת הַתַּרְגִּיל</button>
     </div>
-    <div style="text-align:center;margin-top:10px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
-      <button class="btnGh" onclick="reSpeak()" id="btnSpeak" style="border:1px solid var(--pink-mid);padding:9px 18px;border-radius:20px">&#128266; הַפְעָלַת הַהַנְחָיָה הַקּוֹלִית</button>
-      <button class="btnSpeed" id="btnSpd" onclick="cycleSpeed()">&#127932; מַהִירוּת: רָגִיל</button>
+    <div id="ctrlRunning" style="display:none">
+      <div class="ctrl">
+        <button class="btnRnd" id="btnPP" onclick="togglePP()">&#9654;</button>
+        <button class="btnPri" onclick="finish()">סִיּוּם הַתַּרְגִּיל</button>
+      </div>
+      <div style="text-align:center;margin-top:10px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+        <button class="btnGh" onclick="reSpeak()" style="border:1px solid var(--pink-mid);padding:9px 18px;border-radius:20px">&#128266; חֲזָרָה עַל הַהַנְחָיָה</button>
+        <button class="btnSpeed" id="btnSpd" onclick="cycleSpeed()">&#127932; מַהִירוּת: רָגִיל</button>
+      </div>
     </div>
 
     <!-- נגן ניגון במסך המדיטציה -->
@@ -646,11 +651,18 @@ function openEx(idx){
   document.getElementById('tFill').style.width='0%';
   go('sMed');
   running=false;
-  document.getElementById('btnPP').innerHTML='&#9654;';
+  // מציג כפתור התחלה, מסתיר פקדי ריצה
+  document.getElementById('btnStart').style.display='inline-block';
+  document.getElementById('ctrlRunning').style.display='none';
   if(nigunAudio){ nigunAudio.currentTime=0; nigunAudio.play(); nigunPlaying=true; setPlayerBtn('&#9646;&#9646;'); }
-  setTimeout(function(){
-    startTimer();
-  },1100);
+}
+
+function startExerciseNow(){
+  // מסתיר כפתור התחלה, מציג פקדי ריצה
+  document.getElementById('btnStart').style.display='none';
+  document.getElementById('ctrlRunning').style.display='block';
+  startTimer();
+  setTimeout(function(){ say(EX[curEx].sp); }, 1000);
 }
 
 // ── TIMER ──
