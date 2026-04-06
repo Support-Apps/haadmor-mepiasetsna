@@ -341,7 +341,7 @@ var EX = [
     verse:'כְּמוֹ שֶׁצּוֹפִים בְּנָהָר \u2013 הַנָּהָר זוֹרֵם, אֲנַחְנוּ עַל גְּדָתוֹ, שְׁקֵטוֹת.',
     vsrc:'עִקָּרוֹן רִאשׁוֹן בְּהַהַשְׁקָטָה',
     end:'"שֶׁבָּא יִסְתַּכֵּל אִישׁ עַל מַחְשְׁבוֹתָיו \u2013 וְיִרְאֶה שֶׁכִּמְעַט אֵין חִלּוּק בֵּינוֹ לְבֵין מְשֻׁגָּע"',
-    sp:'שְׁבִי בְּנוֹחוּת עִם גַּב יָשָׁר. עִצְמִי עֵינַיִם בַּעֲדִינוּת. שִׂימִי לֵב: מָה עוֹבֵר עַכְשָׁיו בְּרֹאשֵׁךְ? אַל תְּנַסִּי לַעֲצוֹר. רַק לְהִסְתַּכֵּל. כְּמוֹ שֶׁצּוֹפִים בְּנָהָר זוֹרֵם. כָּל פַּעַם שֶׁמַּחְשָׁבָה מַגִּיעָה, רַק צַיְּנִי אוֹתָהּ בְּשֶׁקֶט: הִנֵּה מַחְשָׁבָה נוֹסֶפֶת. וְהַנִּיחִי לָהּ לַעֲבוֹר.'
+    sp:'שְׁבִי בְּנוֹחוּת עִם גַּב יָשָׁר. הַנִּיחִי אֶת הַיָּדַיִם עַל הַבִּרְכַּיִם. עִצְמִי עֵינַיִם בַּעֲדִינוּת. שִׂימִי לֵב מָה עוֹבֵר עַכְשָׁיו בְּרֹאשֵׁךְ. אַל תְּנַסִּי לַעֲצוֹר, רַק לְהִסְתַּכֵּל. כְּמוֹ שֶׁצּוֹפִים בְּנָהָר זוֹרֵם. שִׂימִי לֵב לְסוּג הַמַּחְשָׁבָה, הַאִם הִיא מִילּוּלִית, תְּמוּנָתִית, רִגְשִׁית. אַל תִּשְׁפְּטִי, רַק תְּגַלִּי. הָאַדְמוֹר אָמַר שֶׁבָּא יִסְתַּכֵּל אִישׁ עַל מַחְשְׁבוֹתָיו הַנּוֹבְעוֹת אֲפִלּוּ שֶׁל יוֹם אֶחָד, תִּרְאִי כַּמָּה הֵן רָצוֹת. כָּל פַּעַם שֶׁמַּחְשָׁבָה מַגִּיעָה, רַק צַיְּנִי אוֹתָהּ בְּשֶׁקֶט, הִנֵּה מַחְשָׁבָה נוֹסֶפֶת. וְהַנִּיחִי לָהּ לַעֲבוֹר.'
   },
   { title:'הַשְׁקָטַת הַמִּלִּים הַפְּנִימִיּוֹת',
     ph:'שְׁלַב א \u00b7 הֲכָנָה',
@@ -540,24 +540,29 @@ window.speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 
 var keepAliveID = null;
+var sayingStopped = false;
 
 function say(txt, cb){
   if(!window.speechSynthesis){ if(cb) cb(); return; }
+  sayingStopped = false;
   window.speechSynthesis.cancel();
   if(keepAliveID){ clearInterval(keepAliveID); keepAliveID=null; }
 
-  var sentences = txt.split(/(?<=[.!?])\s+/).filter(function(s){ return s.trim().length > 0; });
+  // פיצול חכם – מפצל רק לפי נקודה בסוף משפט, לא לפי ? ו-" שבאמצע
+  var sentences = txt
+    .replace(/["""״]/g, '') // הסרת מירכאות
+    .replace(/–/g, ',')     // מקף לפסיק
+    .split('.')              // פיצול לפי נקודה בלבד
+    .map(function(s){ return s.trim(); })
+    .filter(function(s){ return s.length > 2; });
   if(sentences.length === 0){ if(cb) cb(); return; }
 
   var idx = 0;
 
   function speakNext(){
-    if(idx >= sentences.length){
-      vonOff(false);
-      if(keepAliveID){ clearInterval(keepAliveID); keepAliveID=null; }
-      if(cb) cb();
-      return;
-    }
+    if(sayingStopped){ vonOff(false); return; }
+    if(idx >= sentences.length){ vonOff(false); if(cb) cb(); return; }
+
     var u = new SpeechSynthesisUtterance(sentences[idx]);
     u.lang = 'he-IL';
     u.rate = speeds[spdIdx].r;
@@ -565,15 +570,25 @@ function say(txt, cb){
     u.volume = 1;
     if(femaleVoice) u.voice = femaleVoice;
 
-    u.onstart = function(){ vonOff(true); };
+    u.onstart = function(){ if(!sayingStopped) vonOff(true); };
+    u.onend = function(){
+      if(keepAliveID){ clearInterval(keepAliveID); keepAliveID=null; }
+      if(sayingStopped){ vonOff(false); return; }
+      idx++;
+      speakNext();
+    };
+    u.onerror = function(){
+      if(keepAliveID){ clearInterval(keepAliveID); keepAliveID=null; }
+      if(sayingStopped){ vonOff(false); return; }
+      idx++;
+      speakNext();
+    };
 
     keepAliveID = setInterval(function(){
-      if(!window.speechSynthesis.speaking){ clearInterval(keepAliveID); keepAliveID=null; }
-      else{ window.speechSynthesis.pause(); window.speechSynthesis.resume(); }
+      if(sayingStopped || !window.speechSynthesis.speaking){ clearInterval(keepAliveID); keepAliveID=null; return; }
+      window.speechSynthesis.pause();
+      window.speechSynthesis.resume();
     }, 10000);
-
-    u.onend = function(){ clearInterval(keepAliveID); keepAliveID=null; idx++; speakNext(); };
-    u.onerror = function(){ clearInterval(keepAliveID); keepAliveID=null; idx++; speakNext(); };
 
     window.speechSynthesis.speak(u);
   }
@@ -593,15 +608,13 @@ function vonOff(on){
 // ── SPEED ──
 function cycleSpeed(){
   spdIdx=(spdIdx+1)%speeds.length;
-  var btn=document.getElementById('btnSpd');
-  btn.textContent='\u266a מַהִירוּת: '+speeds[spdIdx].l;
-  // restart current speech at new speed if speaking
+  document.getElementById('btnSpd').textContent='\u266a מַהִירוּת: '+speeds[spdIdx].l;
   if(window.speechSynthesis && window.speechSynthesis.speaking){
+    sayingStopped=true;
     window.speechSynthesis.cancel();
-    if(curEx>=0){ say(EX[curEx].sp); }
+    if(curEx>=0){ setTimeout(function(){ say(EX[curEx].sp); },300); }
   }
 }
-
 function reSpeak(){
   if(curEx<0||curEx>=EX.length) return;
   say(EX[curEx].sp);
@@ -682,9 +695,11 @@ function done(){
 }
 function finish(){ stopAll(); go('sComp'); }
 function stopAll(){
+  sayingStopped = true;
   clearInterval(tmID);
   if(keepAliveID){ clearInterval(keepAliveID); keepAliveID=null; }
   if(window.speechSynthesis){ window.speechSynthesis.cancel(); }
+  vonOff(false);
   if(nigunAudio){ nigunAudio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
   running=false; fullOn=false;
 }
