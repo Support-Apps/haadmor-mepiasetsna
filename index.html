@@ -49,7 +49,7 @@ body{font-family:var(--fn);background:var(--off);color:var(--text);min-height:10
 .hAuth{font-size:11px;letter-spacing:2px;color:var(--gold-dk);opacity:.8;margin-bottom:44px;animation:fu 1s ease .9s both}
 .hBtn{border:1px solid var(--gold);background:var(--white);color:var(--gold-dk);font-family:var(--fn);font-size:14px;letter-spacing:3px;padding:14px 50px;cursor:pointer;transition:all .3s;animation:fu 1s ease 1.1s both}
 .hBtn:hover{background:var(--pink);border-color:var(--pink-dp);color:var(--text)}
-.hVerse{position:absolute;bottom:24px;left:0;right:0;text-align:center;font-family:var(--fs);font-size:13px;font-style:italic;color:var(--muted);opacity:.7;padding:0 28px;animation:fu 1s ease 1.4s both;z-index:1}
+.hVerse{text-align:center;font-family:var(--fs);font-size:13px;font-style:italic;color:var(--muted);opacity:.7;padding:0 28px;animation:fu 1s ease 1.4s both;margin-top:20px}
 
 /* ── MENU ── */
 #sMenu{background:var(--off);justify-content:flex-start;padding-top:65px;padding-bottom:55px}
@@ -176,7 +176,7 @@ input[type=range].volSlider::-ms-thumb{width:10px;height:10px;border-radius:50%;
 @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:rgba(232,145,173,.28);border-radius:2px}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.hTit{font-size:54px}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hTit{font-size:54px}.hIn{padding-bottom:60px}}
 </style>
 </head>
 <body>
@@ -199,9 +199,9 @@ input[type=range].volSlider::-ms-thumb{width:10px;height:10px;border-radius:50%;
     <p class="hSub">מְדִיטַצְיָה יְהוּדִית לְפִי הָאַדְמוֹ"ר מִפְּיָאסֶצְ'נָה</p>
     <p class="hAuth">רַבִּי קָלוֹנִימוּס קַלְמִישׁ שָׁפִירָא זצ"ל</p>
     <button class="hBtn" onclick="go('sMenu')">כְּנִיסָה לְתַרְגּוּל</button>
+    <p class="hVerse">"בְּעֵת שֶׁהָאָדָם יֵשׁ וְדַעְתּוֹ וּמַחְשְׁבוֹתָיו שׁוֹקְטִים – אֶפְשָׁר שֶׁתִּשְׁרֶה עָלָיו הַשְׁרָאָה מִמָּרוֹם"</p>
+    <p style="font-family:var(--fs);font-size:11px;font-style:italic;color:var(--muted);opacity:.55;padding:0 14px;margin-top:8px;text-align:center;animation:fu 1s ease 1.6s both">"הַדָּבָר הַכִּי גָּדוֹל בָּעוֹלָם הוּא לַעֲשׂוֹת טוֹבָה לְמִישֶׁהוּ אַחֵר" – הָאַדְמוֹ"ר מִפְּיָאסֶצְ'נָה</p>
   </div>
-  <p class="hVerse">"בְּעֵת שֶׁהָאָדָם יֵשׁ וְדַעְתּוֹ וּמַחְשְׁבוֹתָיו שׁוֹקְטִים – אֶפְשָׁר שֶׁתִּשְׁרֶה עָלָיו הַשְׁרָאָה מִמָּרוֹם"</p>
-  <p style="position:absolute;bottom:6px;left:0;right:0;text-align:center;font-family:var(--fs);font-size:12px;font-style:italic;color:var(--muted);opacity:.55;padding:0 28px;z-index:1">"הַדָּבָר הַכִּי גָּדוֹל בָּעוֹלָם הוּא לַעֲשׂוֹת טוֹבָה לְמִישֶׁהוּ אַחֵר" – הָאַדְמוֹ"ר מִפְּיָאסֶצְ'נָה</p>
 
 </div>
 
