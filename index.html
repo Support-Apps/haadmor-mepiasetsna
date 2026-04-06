@@ -202,22 +202,10 @@ input[type=range].volSlider::-ms-thumb{width:10px;height:10px;border-radius:50%;
   </div>
   <p class="hVerse">"בְּעֵת שֶׁהָאָדָם יֵשׁ וְדַעְתּוֹ וּמַחְשְׁבוֹתָיו שׁוֹקְטִים – אֶפְשָׁר שֶׁתִּשְׁרֶה עָלָיו הַשְׁרָאָה מִמָּרוֹם"</p>
   <p style="position:absolute;bottom:6px;left:0;right:0;text-align:center;font-family:var(--fs);font-size:12px;font-style:italic;color:var(--muted);opacity:.55;padding:0 28px;z-index:1">"הַדָּבָר הַכִּי גָּדוֹל בָּעוֹלָם הוּא לַעֲשׂוֹת טוֹבָה לְמִישֶׁהוּ אַחֵר" – הָאַדְמוֹ"ר מִפְּיָאסֶצְ'נָה</p>
-
-  <!-- נגן הניגון -->
-  <audio id="nigunAudio" src="horeni_nigun.mp3" preload="metadata" style="display:none"></audio>
-  <div style="position:absolute;bottom:16px;left:20px;z-index:1;max-width:260px">
-    <div class="playerBox" style="padding:10px 14px">
-      <div class="playerLbl" style="font-size:11px;margin-bottom:8px">🎵 הוֹרֵנִי ה' דַּרְכֶּךָ</div>
-      <div class="playerRow">
-        <button class="btnPl" id="homeBtnPl" onclick="toggleNigun('home')" style="width:32px;height:32px;font-size:12px">&#9654;</button>
-        <div class="pTrackWrap">
-          <div class="pTrack" id="homeTrack" onclick="seekNigun(event,'homeTrack')">
-            <div class="pFill" id="homeFill"></div>
-          </div>
-          <div class="pTime"><span id="homeCur">0:00</span><span id="homeDur">--:--</span></div>
-        </div>
-      </div>
-    </div>
+  <audio id="nigunAudio" src="horeni_nigun.mp3" preload="none" style="display:none;visibility:hidden;position:absolute;width:0;height:0"></audio>
+  <div style="position:fixed;bottom:18px;left:18px;z-index:999;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.92);border:1px solid var(--border);padding:8px 12px;backdrop-filter:blur(4px)">
+    <button onclick="toggleNigun()" id="homeBtnPl" style="border:1px solid var(--pink-dp);background:none;color:var(--pink-dp);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">&#9654;</button>
+    <span style="font-family:var(--fs);font-size:11px;font-style:italic;color:var(--muted);white-space:nowrap">הוֹרֵנִי ה' דַּרְכֶּךָ</span>
   </div>
 </div>
 
@@ -764,7 +752,7 @@ function fmtTime(s){
   var m=Math.floor(s/60); var sec=Math.floor(s%60);
   return m+':'+(sec<10?'0':'')+sec;
 }
-function toggleNigun(src){
+function toggleNigun(){
   var audio=document.getElementById('nigunAudio');
   if(!audio) return;
   if(nigunPlaying){ audio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
