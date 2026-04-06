@@ -539,11 +539,13 @@ function loadVoices(){
 window.speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 
+var keepAliveID = null;
+
 function say(txt, cb){
   if(!window.speechSynthesis){ if(cb) cb(); return; }
   window.speechSynthesis.cancel();
+  if(keepAliveID){ clearInterval(keepAliveID); keepAliveID=null; }
 
-  // פיצול למשפטים למניעת הדילוג של Chrome
   var sentences = txt.split(/(?<=[.!?])\s+/).filter(function(s){ return s.trim().length > 0; });
   if(sentences.length === 0){ if(cb) cb(); return; }
 
@@ -552,6 +554,7 @@ function say(txt, cb){
   function speakNext(){
     if(idx >= sentences.length){
       vonOff(false);
+      if(keepAliveID){ clearInterval(keepAliveID); keepAliveID=null; }
       if(cb) cb();
       return;
     }
@@ -563,17 +566,14 @@ function say(txt, cb){
     if(femaleVoice) u.voice = femaleVoice;
 
     u.onstart = function(){ vonOff(true); };
-    u.onend = function(){ idx++; speakNext(); };
-    u.onerror = function(){ idx++; speakNext(); };
 
-    // Chrome keepalive – מניעת קיפאון
-    var keepAlive = setInterval(function(){
-      if(!window.speechSynthesis.speaking) clearInterval(keepAlive);
+    keepAliveID = setInterval(function(){
+      if(!window.speechSynthesis.speaking){ clearInterval(keepAliveID); keepAliveID=null; }
       else{ window.speechSynthesis.pause(); window.speechSynthesis.resume(); }
     }, 10000);
 
-    u.onend = function(){ clearInterval(keepAlive); idx++; speakNext(); };
-    u.onerror = function(){ clearInterval(keepAlive); idx++; speakNext(); };
+    u.onend = function(){ clearInterval(keepAliveID); keepAliveID=null; idx++; speakNext(); };
+    u.onerror = function(){ clearInterval(keepAliveID); keepAliveID=null; idx++; speakNext(); };
 
     window.speechSynthesis.speak(u);
   }
@@ -683,8 +683,8 @@ function done(){
 function finish(){ stopAll(); go('sComp'); }
 function stopAll(){
   clearInterval(tmID);
-  if(window.speechSynthesis) window.speechSynthesis.cancel();
-  
+  if(keepAliveID){ clearInterval(keepAliveID); keepAliveID=null; }
+  if(window.speechSynthesis){ window.speechSynthesis.cancel(); }
   if(nigunAudio){ nigunAudio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
   running=false; fullOn=false;
 }
