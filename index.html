@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הַשְׁקָטָה – מְדִיטַצְיָה יְהוּדִית</title>
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=cormorant-garamond:300,300i,400,400i,600|heebo:300,400,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink:     #F9D9E3;
+  --pink-mid: #F2B8CC;
+  --pink-dp:  #E891AD;
+  --gold:     #C9A84C;
+  --gold-lt:  #E8D5A3;
+  --gold-dk:  #9A7520;
+  --white:    #FFFFFF;
+  --off:      #FDF6F9;
+  --text:     #5A3040;
+  --muted:    #9A7080;
+  --border:   rgba(201,168,76,.28);
+  --fs:       'Cormorant Garamond', Georgia, serif;
+  --fn:       'Heebo', Arial, sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--fn);background:var(--off);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+.bsd{position:fixed;top:15px;right:18px;font-family:var(--fs);font-size:13px;color:var(--gold-dk);letter-spacing:1px;z-index:900}
+
+.sc{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .65s;overflow-y:auto;padding:20px}
+.sc.on{opacity:1;pointer-events:all}
+
+#navBack{position:fixed;top:14px;left:16px;z-index:900;display:none}
+#navBack.show{display:block}
+#navBack button{border:none;background:none;color:var(--muted);font-size:22px;cursor:pointer;padding:6px;transition:color .3s}
+#navBack button:hover{color:var(--pink-dp)}
+
+.petal{position:fixed;border-radius:50% 50% 50% 0;background:var(--pink);opacity:.16;pointer-events:none;z-index:0;animation:floatP linear infinite}
+@keyframes floatP{0%{transform:translateY(110vh) rotate(0deg)}100%{transform:translateY(-20vh) rotate(360deg)}}
+
+/* ── HOME ── */
+#sHome{background:var(--white)}
+.hBg{position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 20% 80%,rgba(249,217,227,.55) 0%,transparent 70%),radial-gradient(ellipse 50% 45% at 80% 20%,rgba(242,184,204,.3) 0%,transparent 60%);z-index:0}
+.hIn{position:relative;z-index:1;text-align:center;max-width:540px;width:100%}
+.hOrn{font-family:var(--fs);color:var(--gold);font-size:20px;letter-spacing:10px;margin-bottom:16px;opacity:.7;animation:fu 1.2s ease both}
+.hTit{font-family:var(--fs);font-size:clamp(58px,12vw,98px);font-weight:300;color:var(--text);line-height:1;letter-spacing:6px;animation:fu 1.2s ease .2s both}
+.hLine{width:90px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px auto;animation:fu 1s ease .5s both}
+.hSub{font-family:var(--fs);font-size:16px;font-style:italic;color:var(--muted);margin-bottom:5px;animation:fu 1s ease .7s both}
+.hAuth{font-size:11px;letter-spacing:2px;color:var(--gold-dk);opacity:.8;margin-bottom:44px;animation:fu 1s ease .9s both}
+.hBtn{border:1px solid var(--gold);background:var(--white);color:var(--gold-dk);font-family:var(--fn);font-size:14px;letter-spacing:3px;padding:14px 50px;cursor:pointer;transition:all .3s;animation:fu 1s ease 1.1s both}
+.hBtn:hover{background:var(--pink);border-color:var(--pink-dp);color:var(--text)}
+.hVerse{position:absolute;bottom:24px;left:0;right:0;text-align:center;font-family:var(--fs);font-size:13px;font-style:italic;color:var(--muted);opacity:.7;padding:0 28px;animation:fu 1s ease 1.4s both;z-index:1}
+
+/* ── MENU ── */
+#sMenu{background:var(--off);justify-content:flex-start;padding-top:65px;padding-bottom:55px}
+.mHead{text-align:center;margin-bottom:28px;z-index:1}
+.mHead h2{font-family:var(--fs);font-size:34px;font-weight:300;color:var(--text);letter-spacing:2px;margin-bottom:5px}
+.mHead p{font-size:12px;color:var(--muted);font-weight:300}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:13px;max-width:860px;width:100%;z-index:1}
+.card{background:var(--white);border:1px solid rgba(249,217,227,.9);padding:20px 18px;cursor:pointer;transition:all .3s;text-align:right;box-shadow:0 2px 14px rgba(232,145,173,.06)}
+.card:hover{border-color:var(--pink-dp);box-shadow:0 4px 22px rgba(232,145,173,.18);transform:translateY(-2px)}
+.cardFt{border-color:var(--gold);background:linear-gradient(135deg,#FFFDF7,#FDF6F9);grid-column:1/-1}
+.cardFt:hover{border-color:var(--gold-dk);box-shadow:0 4px 22px rgba(201,168,76,.16)}
+.cNum{font-family:var(--fs);font-size:36px;font-weight:300;color:var(--pink-mid);line-height:1;margin-bottom:5px}
+.cardFt .cNum{color:var(--gold-lt)}
+.cPhase{font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:4px}
+.cTit{font-family:var(--fs);font-size:19px;font-weight:400;color:var(--text);margin-bottom:6px;line-height:1.3}
+.cDesc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7}
+.cTime{margin-top:10px;font-size:11px;color:var(--gold-dk);opacity:.7}
+
+/* ── MED ── */
+#sMed{background:var(--white);justify-content:flex-start;padding-top:60px;padding-bottom:55px}
+.mBg{position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 15% 85%,rgba(249,217,227,.38) 0%,transparent 65%),radial-gradient(ellipse 45% 40% at 85% 15%,rgba(242,184,204,.2) 0%,transparent 55%);pointer-events:none;z-index:0}
+.mC{position:relative;z-index:1;width:100%;max-width:620px}
+.mPhase{text-align:center;font-size:10px;letter-spacing:3px;color:var(--gold);margin-bottom:5px}
+.mTit{font-family:var(--fs);font-size:clamp(24px,5vw,40px);font-weight:300;color:var(--text);text-align:center;letter-spacing:2px;line-height:1.2;margin-bottom:5px}
+.mSub{font-family:var(--fs);font-size:13px;font-style:italic;color:var(--muted);text-align:center;margin-bottom:20px}
+
+.orbW{position:relative;width:170px;height:170px;margin:0 auto 20px}
+.oRing{position:absolute;border-radius:50%;border:1px solid var(--pink-mid);animation:oB 4s ease-in-out infinite}
+.oRing:nth-child(1){inset:0;opacity:.4}
+.oRing:nth-child(2){inset:17px;opacity:.28;animation-delay:.6s}
+.oRing:nth-child(3){inset:34px;opacity:.18;animation-delay:1.2s}
+.oFill{position:absolute;inset:50px;border-radius:50%;background:radial-gradient(circle,rgba(249,217,227,.85) 0%,rgba(242,184,204,.28) 60%,transparent 100%);animation:oB 4s ease-in-out infinite}
+.oTxt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--fs);font-size:12px;font-style:italic;color:var(--text);text-align:center;padding:0 26px;line-height:1.5}
+@keyframes oB{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+.sBox{padding:0 2px;margin-bottom:16px}
+.sItem{display:flex;gap:12px;margin-bottom:14px;opacity:0;transform:translateY(7px);transition:all .5s;text-align:right}
+.sItem.show{opacity:1;transform:none}
+.sDot{width:6px;height:6px;border-radius:50%;background:var(--pink-dp);margin-top:7px;flex-shrink:0;opacity:.7}
+.sTxt{font-size:14px;font-weight:300;color:var(--text);line-height:1.85}
+.sTxt strong{color:var(--gold-dk);font-weight:500}
+
+.vBox{border:1px solid var(--border);background:rgba(249,217,227,.13);padding:18px 20px;text-align:center;margin-bottom:18px}
+.vMain{font-family:var(--fs);font-size:18px;font-style:italic;color:var(--text);line-height:1.9;margin-bottom:5px}
+.vSrc{font-size:11px;color:var(--muted);letter-spacing:1px}
+
+.sep{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto}
+.tArea{text-align:center;margin-bottom:14px}
+.tLbl{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:8px}
+.tNum{font-family:var(--fs);font-size:54px;font-weight:300;color:var(--gold-dk);letter-spacing:4px;line-height:1;margin-bottom:12px}
+.tTrack{height:2px;background:rgba(232,145,173,.15);max-width:260px;margin:0 auto 16px}
+.tFill{height:100%;background:linear-gradient(90deg,var(--pink-mid),var(--pink-dp));width:0;transition:width 1s linear}
+
+.vArea{text-align:center;margin-bottom:12px}
+.vLbl{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:7px}
+.viz{display:flex;align-items:center;justify-content:center;gap:3px;height:34px;margin-bottom:5px}
+.vb{width:3px;border-radius:2px;background:var(--pink-dp);opacity:.3;height:5px}
+.vb.on{opacity:.8;animation:vw 1.2s ease-in-out infinite}
+.vb.on:nth-child(2){animation-delay:.15s}
+.vb.on:nth-child(3){animation-delay:.3s}
+.vb.on:nth-child(4){animation-delay:.45s}
+.vb.on:nth-child(5){animation-delay:.3s}
+.vb.on:nth-child(6){animation-delay:.15s}
+@keyframes vw{0%,100%{height:5px}50%{height:26px}}
+.vSt{font-size:11px;color:var(--gold-dk);opacity:.7;min-height:15px}
+
+.ctrl{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.btnRnd{width:50px;height:50px;border-radius:50%;border:1px solid var(--pink-dp);background:var(--white);color:var(--pink-dp);font-size:17px;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;justify-content:center}
+.btnRnd:hover{background:var(--pink)}
+.btnPri{border:1px solid var(--gold);background:var(--white);color:var(--gold-dk);font-family:var(--fn);font-size:13px;letter-spacing:2px;padding:12px 34px;cursor:pointer;transition:all .3s}
+.btnPri:hover{background:rgba(201,168,76,.08)}
+.btnGh{border:none;background:none;color:var(--muted);font-family:var(--fn);font-size:12px;letter-spacing:1px;padding:7px 14px;cursor:pointer;transition:color .3s}
+.btnGh:hover{color:var(--gold-dk)}
+.btnSpeed{border:1px solid var(--pink-mid);background:var(--white);color:var(--text);font-family:var(--fn);font-size:12px;letter-spacing:1px;padding:7px 16px;cursor:pointer;transition:all .3s;border-radius:20px}
+.btnSpeed:hover{background:var(--pink);border-color:var(--pink-dp)}
+.btnSpeed.active{background:var(--pink);border-color:var(--pink-dp);color:var(--text)}
+
+/* ── FULL ── */
+#sFull{background:var(--off);justify-content:flex-start;padding-top:60px;padding-bottom:55px}
+.fIn{max-width:600px;width:100%;z-index:1}
+.fStep{margin-bottom:26px;opacity:0;transform:translateY(8px);transition:all .55s}
+.fStep.show{opacity:1;transform:none}
+.fHead{display:flex;align-items:center;gap:12px;margin-bottom:7px}
+.fN{font-family:var(--fs);font-size:32px;font-weight:300;color:var(--pink-mid);min-width:32px}
+.fTit{font-family:var(--fs);font-size:20px;color:var(--text)}
+.fBody{font-size:13px;font-weight:300;color:var(--muted);line-height:1.9;padding-right:44px}
+.pDiv{display:flex;align-items:center;gap:12px;margin:6px 0 20px}
+.pLine{flex:1;height:1px;background:rgba(232,145,173,.22)}
+.pTxt{font-size:10px;letter-spacing:2px;color:var(--pink-dp);white-space:nowrap;opacity:.8}
+.nBox{border:1px solid var(--border);background:rgba(249,217,227,.16);padding:26px;text-align:center;margin-bottom:22px}
+.nLbl{font-size:10px;letter-spacing:3px;color:var(--gold);margin-bottom:12px}
+.nVerse{font-family:var(--fs);font-size:21px;color:var(--text);line-height:1.9;margin-bottom:7px}
+.nTrans{font-size:12px;color:var(--muted);font-style:italic;margin-bottom:13px}
+.nBtn{border:1px solid rgba(201,168,76,.38);background:none;color:var(--gold-dk);font-family:var(--fn);font-size:12px;letter-spacing:2px;padding:8px 22px;cursor:pointer;transition:all .3s}
+.nBtn:hover{background:rgba(201,168,76,.07)}
+
+/* ── COMPLETE ── */
+#sComp{background:var(--white);text-align:center}
+.cBg2{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(249,217,227,.42) 0%,transparent 70%);pointer-events:none}
+.cIn{position:relative;z-index:1}
+.cStar{font-size:38px;color:var(--gold);margin-bottom:16px;animation:sp 3s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+.cTit{font-family:var(--fs);font-size:40px;font-weight:300;color:var(--text);letter-spacing:3px;margin-bottom:14px}
+.cVerse{font-family:var(--fs);font-size:17px;font-style:italic;color:var(--muted);max-width:400px;line-height:1.9;margin-bottom:38px}
+
+/* ── PLAYER ── */
+.playerWrap{max-width:320px;margin:16px auto 0;position:relative;z-index:1}
+.playerBox{background:rgba(249,217,227,.25);border:1px solid var(--border);padding:14px 18px;text-align:center}
+.playerLbl{font-family:var(--fs);font-size:12px;font-style:italic;color:var(--gold-dk);margin-bottom:10px;letter-spacing:1px;opacity:.85}
+.playerRow{display:flex;align-items:center;gap:10px}
+.btnPl{width:38px;height:38px;border-radius:50%;border:1px solid var(--pink-dp);background:var(--white);color:var(--pink-dp);font-size:14px;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.btnPl:hover{background:var(--pink)}
+.pTrackWrap{flex:1}
+.pTrack{height:2px;background:rgba(232,145,173,.2);cursor:pointer;position:relative;margin-bottom:4px}
+.pFill{height:100%;background:linear-gradient(90deg,var(--pink-mid),var(--pink-dp));width:0%}
+.pTime{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+.volRow{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px}
+.volRow span{font-size:12px;color:var(--muted)}
+input[type=range].volSlider{-webkit-appearance:none;width:80px;height:2px;background:rgba(232,145,173,.3);outline:none;cursor:pointer}
+input[type=range].volSlider::-webkit-slider-thumb{-webkit-appearance:none;width:10px;height:10px;border-radius:50%;background:var(--pink-dp)}
+
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(232,145,173,.28);border-radius:2px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hTit{font-size:54px}}
+</style>
+</head>
+<body>
+
+<div class="petal" style="width:28px;height:28px;right:8%;animation-duration:18s;animation-delay:0s"></div>
+<div class="petal" style="width:18px;height:18px;right:28%;animation-duration:23s;animation-delay:5s"></div>
+<div class="petal" style="width:14px;height:14px;right:58%;animation-duration:16s;animation-delay:9s"></div>
+<div class="petal" style="width:22px;height:22px;right:78%;animation-duration:21s;animation-delay:3s"></div>
+
+<div class="bsd">בס״ד</div>
+<div id="navBack"><button onclick="goBack()">&#8592;</button></div>
+
+<!-- HOME -->
+<div class="sc on" id="sHome">
+  <div class="hBg"></div>
+  <div class="hIn">
+    <div class="hOrn">✦ &nbsp; ✦ &nbsp; ✦</div>
+    <h1 class="hTit">הַשְׁקָטָה</h1>
+    <div class="hLine"></div>
+    <p class="hSub">מְדִיטַצְיָה יְהוּדִית לְפִי הָאַדְמוֹ"ר מִפְּיָאסֶצְ'נָה</p>
+    <p class="hAuth">רַבִּי קָלוֹנִימוּס קַלְמִישׁ שָׁפִירָא זצ"ל</p>
+    <button class="hBtn" onclick="go('sMenu')">כְּנִיסָה לְתַרְגּוּל</button>
+  </div>
+  <p class="hVerse">"בְּעֵת שֶׁהָאָדָם יֵשׁ וְדַעְתּוֹ וּמַחְשְׁבוֹתָיו שׁוֹקְטִים – אֶפְשָׁר שֶׁתִּשְׁרֶה עָלָיו הַשְׁרָאָה מִמָּרוֹם"</p>
+  <p style="position:absolute;bottom:6px;left:0;right:0;text-align:center;font-family:var(--fs);font-size:12px;font-style:italic;color:var(--muted);opacity:.55;padding:0 28px;z-index:1">"הַדָּבָר הַכִּי גָּדוֹל בָּעוֹלָם הוּא לַעֲשׂוֹת טוֹבָה לְמִישֶׁהוּ אַחֵר" – הָאַדְמוֹ"ר מִפְּיָאסֶצְ'נָה</p>
+
+  <!-- נגן הניגון -->
+  <audio id="nigunAudio" src="horeni_nigun.mp3" preload="metadata"></audio>
+  <div style="position:absolute;bottom:16px;left:20px;z-index:1;max-width:260px">
+    <div class="playerBox" style="padding:10px 14px">
+      <div class="playerLbl" style="font-size:11px;margin-bottom:8px">🎵 הוֹרֵנִי ה' דַּרְכֶּךָ</div>
+      <div class="playerRow">
+        <button class="btnPl" id="homeBtnPl" onclick="toggleNigun('home')" style="width:32px;height:32px;font-size:12px">&#9654;</button>
+        <div class="pTrackWrap">
+          <div class="pTrack" id="homeTrack" onclick="seekNigun(event,'homeTrack')">
+            <div class="pFill" id="homeFill"></div>
+          </div>
+          <div class="pTime"><span id="homeCur">0:00</span><span id="homeDur">--:--</span></div>
+        </div>
+      </div>
+      <div class="volRow" style="margin-top:6px">
+        <span>🔈</span>
+        <input type="range" class="volSlider" min="0" max="1" step="0.05" value="0.8" oninput="document.getElementById('nigunAudio').volume=this.value">
+        <span>🔊</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="sc" id="sMenu">
+  <div class="mHead"><h2>בַּחֲרִי תַּרְגִּיל</h2><p>עֲשָׂרָה שְׁלָבִים בְּדֶרֶךְ הַהַשְׁקָטָה</p></div>
+  <div class="grid">
+    <div class="card" onclick="openEx(0)"><div class="cNum">א</div><div class="cPhase">שלב א · הכנה</div><div class="cTit">רְאִיַּת הַמַּחְשָׁבוֹת</div><div class="cDesc">מֶטָא-מְדִיטַצְיָה – הִתְבּוֹנְנוּת עַל זֶרֶם הַמַּחְשָׁבוֹת לְלֹא שִׁפּוּט</div><div class="cTime">⏱ 5–8 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(1)"><div class="cNum">ב</div><div class="cPhase">שלב א · הכנה</div><div class="cTit">הַשְׁקָטַת הַמִּלִּים הַפְּנִימִיּוֹת</div><div class="cDesc">רֵיקּוּן הָרֹאשׁ מֵהַמַּלָּל – "עַד שֶׁהַמַּחְשָׁבוֹת עוֹצְרוֹת מִשִּׁטְפָן הָרָגִיל"</div><div class="cTime">⏱ 5–10 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(2)"><div class="cNum">ג</div><div class="cPhase">שלב א · הכנה</div><div class="cTit">בִּטּוּל הַיֵּשׁוּת</div><div class="cDesc">שִׁחְרוּר הָאֶגוֹ – כְּנִיסָה לְמַצָּב "הִיפְּנַאגוֹגְיָה" בֵּין עֵרוּת לְשֵׁינָה</div><div class="cTime">⏱ 8–12 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(3)"><div class="cNum">ד</div><div class="cPhase">שלב א · הכנה</div><div class="cTit">הַרְגָּעָה עַצְמִית</div><div class="cDesc">"בֶּרוּהִיג דִי" – כְּמַטְאֲטֵא עָדִין הַמְנַקֶּה אֶת הַמֹּחַ</div><div class="cTime">⏱ 5–7 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(4)"><div class="cNum">ה</div><div class="cPhase">שלב ב · מיקוד</div><div class="cTit">מִיקּוּד הַמּוֹדָעוּת</div><div class="cDesc">הַבָּטָה עַל הַמַּחוֹג הַקָּטָן – שִׁיטַת הָאַדְמוֹ"ר בְּהַשְׁרָאַת אוּסְפֶּנְסְקִי</div><div class="cTime">⏱ 7–10 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(5)"><div class="cNum">ו</div><div class="cPhase">שלב ב · מיקוד</div><div class="cTit">מַחְשֶׁבֶת הַקְּדֻשָּׁה</div><div class="cDesc">הַכְנָסַת מַחְשָׁבָה שֶׁל "ה' אֱלֹקַי אֱמֶת" אֶל תּוֹךְ הַשֶּׁקֶט הַפְּנִימִי</div><div class="cTime">⏱ 8–12 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(6)"><div class="cNum">ז</div><div class="cPhase">שלב ב · מיקוד</div><div class="cTit">תְּפִלָּה מְמֻרְכֶּזֶת</div><div class="cDesc">חֲזָרָה עַל "הוֹרֵנִי ה' דַּרְכֶּךָ" – הַפָּסוּק הַמְּיֻחָד שֶׁל הָאַדְמוֹ"ר</div><div class="cTime">⏱ 10–15 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(7)"><div class="cNum">ח</div><div class="cPhase">שלב ג · השראה</div><div class="cTit">מּוֹדָעוּת קוֹנְטֶמְפְּלָטִיבִית</div><div class="cDesc">חִיזּוּק אֱמוּנָה, יִרְאָה וְאַהֲבָה – "וְאֵין שׁוּם מְצִיאוּת זוּלָתוֹ"</div><div class="cTime">⏱ 10–15 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(8)"><div class="cNum">ט</div><div class="cPhase">שלב ג · השראה</div><div class="cTit">פְּתִיחָה לְהַשְׁרָאָה מִמָּרוֹם</div><div class="cDesc">"חֲלוֹם אֶחָד מִשִּׁשִּׁים בִּנְבוּאָה" – יְצִירַת מָקוֹם לָאוֹר הָאֱלֹהִי</div><div class="cTime">⏱ 12–20 דַּקּוֹת</div></div>
+    <div class="card" onclick="openEx(9)"><div class="cNum">י</div><div class="cPhase">שלב ג · השראה</div><div class="cTit">אִיזּוּן קוֹנָאטִיבִי קְבוּצָתִי</div><div class="cDesc">הַכְוָנַת הָרָצוֹן לְשִׂמְחָה וּבְרִיאוּת – כְּדֶרֶךְ "בְּנֵי מַחְשָׁבָה טוֹבָה"</div><div class="cTime">⏱ 10–15 דַּקּוֹת</div></div>
+    <div class="card cardFt" onclick="openEx(10)"><div class="cNum">✦</div><div class="cPhase">סֵדֶר מָלֵא · כָּל הַשְּׁלָבִים</div><div class="cTit">הַהַשְׁקָטָה הַשְּׁלֵמָה</div><div class="cDesc">הַסֵּדֶר הַמָּלֵא עִם הַנְחָיָה קוֹלִית – מֵהִתְבּוֹנְנוּת רִאשׁוֹנָה וְעַד נִיגּוּן הַסִּיּוּם</div><div class="cTime">⏱ 30–45 דַּקּוֹת</div></div>
+  </div>
+</div>
+
+<!-- MEDITATION -->
+<div class="sc" id="sMed">
+  <div class="mBg"></div>
+  <div class="mC">
+    <div class="mPhase" id="mPh"></div>
+    <h2 class="mTit" id="mTi"></h2>
+    <p class="mSub" id="mSu"></p>
+    <div class="orbW">
+      <div class="oRing"></div><div class="oRing"></div><div class="oRing"></div>
+      <div class="oFill"></div>
+      <div class="oTxt" id="oTx"></div>
+    </div>
+    <div class="sBox" id="sBox"></div>
+    <div class="vBox"><div class="vMain" id="vMain"></div><div class="vSrc" id="vSrc"></div></div>
+    <div class="sep"></div>
+    <div class="tArea">
+      <div class="tLbl">זְמַן תַּרְגּוּל</div>
+      <div class="tNum" id="tNum">00:00</div>
+      <div class="tTrack"><div class="tFill" id="tFill"></div></div>
+    </div>
+    <div class="vArea">
+      <div class="vLbl">הַנְחָיָה קוֹלִית</div>
+      <div class="viz" id="viz">
+        <div class="vb"></div><div class="vb"></div><div class="vb"></div>
+        <div class="vb"></div><div class="vb"></div><div class="vb"></div><div class="vb"></div>
+      </div>
+      <div class="vSt" id="vSt"></div>
+    </div>
+    <div class="ctrl">
+      <button class="btnRnd" id="btnPP" onclick="togglePP()">&#9654;</button>
+      <button class="btnPri" onclick="finish()">סִיּוּם הַתַּרְגִּיל</button>
+    </div>
+    <div style="text-align:center;margin-top:10px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+      <button class="btnGh" onclick="reSpeak()">&#128266; חֲזָרָה עַל הַהַנְחָיָה</button>
+      <button class="btnSpeed" id="btnSpd" onclick="cycleSpeed()">&#127932; מַהִירוּת: רָגִיל</button>
+    </div>
+
+    <!-- נגן ניגון במסך המדיטציה -->
+    <div style="max-width:320px;margin:18px auto 0">
+      <div class="playerBox">
+        <div class="playerLbl">🎵 הוֹרֵנִי ה' דַּרְכֶּךָ – נִיגּוּן הָאַדְמוֹ"ר</div>
+        <div class="playerRow">
+          <button class="btnPl" id="medBtnPl" onclick="toggleNigun('med')">&#9654;</button>
+          <div class="pTrackWrap">
+            <div class="pTrack" id="medTrack" onclick="seekNigun(event,'medTrack')">
+              <div class="pFill" id="medFill"></div>
+            </div>
+            <div class="pTime"><span id="medCur">0:00</span><span id="medDur">--:--</span></div>
+          </div>
+        </div>
+        <div class="volRow">
+          <span>🔈</span>
+          <input type="range" class="volSlider" min="0" max="1" step="0.05" value="0.8" oninput="document.getElementById('nigunAudio').volume=this.value">
+          <span>🔊</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FULL -->
+<div class="sc" id="sFull">
+  <div class="fIn">
+    <div style="text-align:center;margin-bottom:26px">
+      <div style="font-size:10px;letter-spacing:3px;color:var(--gold);margin-bottom:5px">סֵדֶר מָלֵא</div>
+      <h2 style="font-family:var(--fs);font-size:34px;font-weight:300;color:var(--text);letter-spacing:2px">הַהַשְׁקָטָה הַשְּׁלֵמָה</h2>
+      <p style="font-family:var(--fs);font-size:13px;font-style:italic;color:var(--muted);margin-top:4px">לְפִי תּוֹרַת הָאַדְמוֹ"ר הַקָּדוֹשׁ מִפְּיָאסֶצְ'נָה זצ"ל</p>
+    </div>
+    <div id="fWrap"></div>
+    <div class="nBox" id="nBox" style="display:none">
+      <div class="nLbl">נִיגּוּן הַסִּיּוּם</div>
+      <div class="nVerse">הֽוֹרֵ֥נִי יְהֹוָ֗ה דַּרְכֶּ֗ךָ<br>אֲהַלֵּ֥ךְ בַּאֲמִתֶּֽךָ<br>יַחֵ֣ד לְבָבִ֣י לְיִרְאָ֣ה שְׁמֶֽ ךָ</div>
+      <div class="nTrans">הוֹרֵנִי ה' דַּרְכֶּךָ, אֲהַלֵּךְ בַּאֲמִתֶּךָ, יַחֵד לְבָבִי לְיִרְאָה שְׁמֶךָ</div>
+      <button class="nBtn" onclick="playNigun()">&#127925; שִׁמְעִי אֶת הַפָּסוּק</button>
+    </div>
+    <div style="text-align:center;padding:8px 0 28px">
+      <button class="btnPri" onclick="startFull()">&#9654; הַתְחָלַת סֵדֶר מָלֵא עִם הַנְחָיָה קוֹלִית</button>
+      <div style="margin-top:10px"><button class="btnGh" onclick="goBack()">חֲזָרָה לְתַפְרִיט</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETE -->
+<div class="sc" id="sComp">
+  <div class="cBg2"></div>
+  <div class="cIn">
+    <div class="cStar">✦</div>
+    <h2 class="cTit">תַּרְגִּיל הוּשְׁלַם</h2>
+    <div class="hLine"></div>
+    <p class="cVerse">"זֶה אֵלִי וְאַנְוֵהוּ"<br><span style="font-size:12px;color:var(--muted)">שְׁמוֹת ט"ו, ב'</span></p>
+    <div style="margin:-20px auto 36px;max-width:380px;border-top:1px solid var(--border);padding-top:24px;">
+      <p style="font-family:var(--fs);font-size:19px;font-style:italic;color:var(--text);line-height:1.9;margin-bottom:8px;">
+        "הַדָּבָר הַכִּי גָּדוֹל בָּעוֹלָם הוּא לַעֲשׂוֹת טוֹבָה לְמִישֶׁהוּ אַחֵר"
+      </p>
+      <p style="font-size:11px;letter-spacing:1px;color:var(--gold-dk);opacity:.8;">הָאַדְמוֹ"ר הַקָּדוֹשׁ מִפְּיָאסֶצְ'נָה זצ"ל</p>
+    </div>
+    <div class="ctrl">
+      <button class="btnPri" onclick="go('sMenu')">תַּרְגִּיל נוֹסָף</button>
+      <button class="btnGh" onclick="go('sHome')">דַּף הַבַּיִת</button>
+    </div>
+    <div class="playerWrap" style="margin-top:24px">
+      <div class="playerBox">
+        <div class="playerLbl">🎵 הוֹרֵנִי ה' דַּרְכֶּךָ – נִיגּוּן הָאַדְמוֹ"ר</div>
+        <div class="playerRow">
+          <button class="btnPl" id="compBtnPl" onclick="toggleNigun('comp')">▶</button>
+          <div class="pTrackWrap">
+            <div class="pTrack" id="compTrack" onclick="seekNigun(event,'compTrack')">
+              <div class="pFill" id="compFill"></div>
+            </div>
+            <div class="pTime"><span id="compCur">0:00</span><span id="compDur">--:--</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+var EX = [
+  { title:'רְאִיַּת הַמַּחְשָׁבוֹת',
+    ph:'שְׁלַב א \u00b7 הֲכָנָה',
+    sub:'מֶטָא-מְדִיטַצְיָה \u2013 זְרִימָה חָפְשִׁית שֶׁל הַמַּחְשָׁבוֹת',
+    orb:'הִסְתַּכְּלִי עַל מַחְשְׁבוֹתַיִךְ כְּצוֹפָה שְׁקֵטָה מִבַּחוּץ', dur:480,
+    steps:[
+      '<strong>שְׁבִי בְּנוֹחוּת</strong> עִם גַּב יָשָׁר. הַנִּיחִי אֶת הַיָּדַיִם עַל הַבִּרְכַּיִם. עִצְמִי עֵינַיִם בַּעֲדִינוּת.',
+      '<strong>שִׂימִי לֵב:</strong> מָה עוֹבֵר עַכְשָׁיו בְּרֹאשֵׁךְ? אַל תְּנַסִּי לַעֲצוֹר \u2013 רַק לְהִסְתַּכֵּל. כְּמוֹ שֶׁצּוֹפִים בְּנָהָר זוֹרֵם.',
+      'שִׂימִי לֵב לְסוּג הַמַּחְשָׁבָה \u2013 <strong>הַאִם הִיא מִילּוּלִית? תְּמוּנָתִית? רִגְשִׁית?</strong> אַל תִּשְׁפְּטִי, רַק תְּגַלִּי.',
+      'הָאַדְמוֹ"ר: <strong>"שֶׁבָּא יִסְתַּכֵּל אִישׁ עַל מַחְשְׁבוֹתָיו הַנּוֹבְעוֹת אֲפִלּוּ שֶׁל יוֹם אֶחָד"</strong> \u2013 תִּרְאִי כַּמָּה הֵן רָצוֹת.',
+      'כָּל פַּעַם שֶׁמַּחְשָׁבָה מַגִּיעָה \u2013 <strong>רַק צַיְּנִי אוֹתָהּ:</strong> "הִנֵּה מַחְשָׁבָה נוֹסֶפֶת" \u2013 וְהַנִּיחִי לָהּ לַעֲבוֹר.'
+    ],
+    verse:'כְּמוֹ שֶׁצּוֹפִים בְּנָהָר \u2013 הַנָּהָר זוֹרֵם, אֲנַחְנוּ עַל גְּדָתוֹ, שְׁקֵטוֹת.',
+    vsrc:'עִקָּרוֹן רִאשׁוֹן בְּהַהַשְׁקָטָה',
+    end:'"שֶׁבָּא יִסְתַּכֵּל אִישׁ עַל מַחְשְׁבוֹתָיו \u2013 וְיִרְאֶה שֶׁכִּמְעַט אֵין חִלּוּק בֵּינוֹ לְבֵין מְשֻׁגָּע"',
+    sp:'שְׁבִי בְּנוֹחוּת עִם גַּב יָשָׁר. עִצְמִי עֵינַיִם בַּעֲדִינוּת. שִׂימִי לֵב: מָה עוֹבֵר עַכְשָׁיו בְּרֹאשֵׁךְ? אַל תְּנַסִּי לַעֲצוֹר. רַק לְהִסְתַּכֵּל. כְּמוֹ שֶׁצּוֹפִים בְּנָהָר זוֹרֵם. כָּל פַּעַם שֶׁמַּחְשָׁבָה מַגִּיעָה, רַק צַיְּנִי אוֹתָהּ בְּשֶׁקֶט: הִנֵּה מַחְשָׁבָה נוֹסֶפֶת. וְהַנִּיחִי לָהּ לַעֲבוֹר.'
+  },
+  { title:'הַשְׁקָטַת הַמִּלִּים הַפְּנִימִיּוֹת',
+    ph:'שְׁלַב א \u00b7 הֲכָנָה',
+    sub:'רֵיקּוּן הָרֹאשׁ מֵהַמַּלָּל הַפְּנִימִי',
+    orb:'לְאַט לְאַט... הָרֹאשׁ מִתְרוֹקֵן... הַמִּלִּים מַפְסִיקוֹת...', dur:600,
+    steps:[
+      '<strong>שְׁבִי בְּנוֹחוּת</strong> וְעִצְמִי עֵינַיִם. שִׂימִי לֵב לַקּוֹל הַפְּנִימִי שֶׁמִּתְרַצֶּה כָּל הַזְּמַן.',
+      '<strong>"לְאַט לְאַט"</strong> \u2013 כָּךְ כָּתַב הָאַדְמוֹ"ר. לֹא בְּכֹחַ. לֹא בְּהִתְאַמְּצוּת. רַק בְּנוֹכְחוּת.',
+      'דַּמְיְנִי שֶׁכָּל מִילָּה פְּנִימִית <strong>נִמֶּסֶת כְּמוֹ שֶׁלֶג</strong> \u2013 לְאַט, בְּשֶׁקֶט, לְלֹא מַאֲמָץ.',
+      'כְּשֶׁמַּגִּיעָה מַחְשָׁבָה מִילּוּלִית \u2013 <strong>אַל תִּתְנַגְּדִי לָהּ</strong>. רַק הַנִּיחִי לָהּ לַעֲבוֹר כְּעָנָן.',
+      '<strong>"עַד שֶׁהַמַּחְשָׁבוֹת עוֹצְרוֹת מִשִּׁטְפָן הָרָגִיל"</strong> \u2013 זֶה יִקְרֶה מֵעַצְמוֹ, כְּשֶׁתַּנִּיחִי.'
+    ],
+    verse:'הוֹרֵנִי ה\' דַּרְכֶּךָ', vsrc:'תְּהִלִּים פ"ו, י"א',
+    end:'"לְאַט לְאַט מִתְרוֹקֵן הָרֹאשׁ וְהַמַּחְשָׁבוֹת עוֹצְרוֹת מִשִּׁטְפָן הָרָגִיל"',
+    sp:'שְׁבִי בְּנוֹחוּת וְעִצְמִי עֵינַיִם. שִׂימִי לֵב לַקּוֹל הַפְּנִימִי שֶׁמִּתְרַצֶּה כָּל הַזְּמַן. לְאַט לְאַט. לֹא בְּכֹחַ. לֹא בְּהִתְאַמְּצוּת. רַק בְּנוֹכְחוּת. דַּמְיְנִי שֶׁכָּל מִילָּה פְּנִימִית נִמֶּסֶת כְּמוֹ שֶׁלֶג. עַד שֶׁהַמַּחְשָׁבוֹת עוֹצְרוֹת מִשִּׁטְפָן הָרָגִיל.'
+  },
+  { title:'בִּטּוּל הַיֵּשׁוּת',
+    ph:'שְׁלַב א \u00b7 הֲכָנָה',
+    sub:'שִׁחְרוּר הָאֶגוֹ \u2013 כְּנִיסָה לְהִיפְּנַאגוֹגְיָה',
+    orb:'אֲנִי נָמוֹגָה... יֵשׁ שֶׁקֶט... אֲנִי כִּמְעַט אַיִן...', dur:720,
+    steps:[
+      '<strong>הַרְגִּישִׁי אֶת גּוּפֵךְ</strong> יוֹשֵׁב \u2013 וְאָז שַׁחְרְרִי אֶת הַחֲשִׁיבָה עַל "אֲנִי". רַק הַנּוֹכְחוּת.',
+      '<strong>"לָבוֹא בְּהָקִיץ"</strong> לְמַצָּב הַדּוֹמֶה לִרְגִיעָה שֶׁלִּפְנֵי שֵׁינָה \u2013 נִיעוּר חֶלְקִי, "לֹא נֵי וְלֹא עֵיר".',
+      'דַּמְיְנִי שֶׁהַגּוּף <strong>כָּבֵד וָנָח</strong> כְּמוֹ לִפְנֵי שֵׁינָה \u2013 הַנְּשִׁימָה אִיטִּית, הַדַּעַת שְׁקֵטָה.',
+      'הָאַדְמוֹ"ר: <strong>"כֵּיוָן שֶׁאֵין לוֹ דַּעַת לְעַצְמוֹ"</strong> \u2013 רַק אָז אֶפְשָׁר שֶׁתִּשְׁרֶה הַשְׁרָאָה מִמָּרוֹם.',
+      'אֵין צֹרֶךְ לַחְשֹׁב שׁוּם דָּבָר. רַק <strong>לִהְיוֹת נוֹכַחַת</strong>, שְׁקֵטָה, פְּתוּחָה.'
+    ],
+    verse:'כִּי בְּעֵת שֶׁשּׁוֹקְטִים הַמַּחְשָׁבוֹת \u2013 תִּשְׁרֶה עָלָיו הַשְׁרָאָה מִמָּרוֹם',
+    vsrc:'עִנְיַן הַהַשְׁקָטָה',
+    end:'"בְּעֵת שֶׁהָאָדָם יֵשׁ וְדַעְתּוֹ וּמַחְשְׁבוֹתָיו שׁוֹקְטִים \u2013 אֶפְשָׁר שֶׁתִּשְׁרֶה עָלָיו הַשְׁרָאָה מִמָּרוֹם"',
+    sp:'הַרְגִּישִׁי אֶת גּוּפֵךְ יוֹשֵׁב. וְאָז שַׁחְרְרִי אֶת הַחֲשִׁיבָה עַל עַצְמֵךְ. רַק הַנּוֹכְחוּת. לָבוֹא בְּהָקִיץ לְמַצָּב הַדּוֹמֶה לִרְגִיעָה שֶׁלִּפְנֵי שֵׁינָה. הַנְּשִׁימָה אִיטִּית. הַדַּעַת שְׁקֵטָה. כֵּיוָן שֶׁאֵין לָהּ דַּעַת לְעַצְמָהּ, אֶפְשָׁר שֶׁתִּשְׁרֶה הַשְׁרָאָה מִמָּרוֹם.'
+  },
+  { title:'הַרְגָּעָה עַצְמִית',
+    ph:'שְׁלַב א \u00b7 הֲכָנָה',
+    sub:'"בֶּרוּהִיג דִי" \u2013 כְּמַטְאֲטֵא הַמְנַקֶּה אֶת הַמֹּחַ',
+    orb:'מַרְגִּיעָה... שׁוֹחֶרֶרֶת... נִרְגַּעַת... שֶׁקֶט...', dur:420,
+    steps:[
+      '<strong>נִשְׁמִי עָמֹק שָׁלוֹשׁ פְּעָמִים</strong> \u2013 שְׁאִיפָה אֲרֻכָּה, נְשִׁיפָה אֲרֻכָּה עוֹד יוֹתֵר.',
+      '<strong>אַל תִּתְנַגְּדִי</strong> לְמַחְשָׁבוֹת טוֹרְדָנִיּוֹת בְּחֹזֶק \u2013 "שֶׁבָּא לֹא יִתְאַמֵּץ" אֶלָּא פָּשׁוּט יֵירָגַע.',
+      'דַּמְיְנִי <strong>מַטְאֲטֵא עָדִין</strong> שֶׁמְּנַקֶּה בַּעֲדִינוּת אֶת הַמֹּחַ מֵהַמַּחְשָׁבוֹת הָרָצוֹת.',
+      'כָּל נְשִׁיפָה \u2013 <strong>שִׁחְרוּר אֶחָד</strong>. כָּל שְׁאִיפָה \u2013 <strong>שֶׁקֶט נִכְנָס</strong>.',
+      'הָאַדְמוֹ"ר: <strong>"תִּתְפַּלְאִי עַל הָאֶמְצָעִי הַזֶּה \u2013 כַּמָּה קַל הוּא"</strong>. אֵין צֹרֶךְ בְּמַאֲמָץ.'
+    ],
+    verse:'פָּשׁוּט לְהֵירָגַע \u2013 "בֶּרוּהִיג דִי"',
+    vsrc:'הַכְשָׁרַת הָאַבְרֵכִים, פֶּרֶק ט',
+    end:'"תִּתְפַּלֵּא עַל הָאֶמְצָעִי הַזֶּה \u2013 כַּמָּה קַל \u2013 כְּמוֹ בְּמַטְאֲטֵא נִקֵּית אֶת מֹחֲךָ"',
+    sp:'נִשְׁמִי עָמֹק שָׁלוֹשׁ פְּעָמִים. שְׁאִיפָה אֲרֻכָּה, נְשִׁיפָה אֲרֻכָּה עוֹד יוֹתֵר. אַל תִּתְנַגְּדִי לְמַחְשָׁבוֹת טוֹרְדָנִיּוֹת בְּחֹזֶק. פָּשׁוּט הֵירָגְעִי. כְּמַטְאֲטֵא עָדִין הַמְנַקֶּה בַּעֲדִינוּת אֶת הַמֹּחַ. כָּל נְשִׁיפָה הִיא שִׁחְרוּר אֶחָד. כָּל שְׁאִיפָה, שֶׁקֶט נִכְנָס.'
+  },
+  { title:'מִיקּוּד הַמּוֹדָעוּת',
+    ph:'שְׁלַב ב \u00b7 מִיקּוּד',
+    sub:'הַבָּטָה עַל הַמַּחוֹג הַקָּטָן \u2013 שִׁיטַת אוּסְפֶּנְסְקִי-הָאַדְמוֹ"ר',
+    orb:'הַבִּיטִי עַל מַחוֹג הַשָּׁעוֹת... כִּמְעַט אֵינוֹ זָז... נוֹכְחוּת מְלֵאָה...', dur:600,
+    steps:[
+      '<strong>פִּתְחִי עֵינַיִם</strong> לְמֶחֱצָה. מִצְאִי שָׁעוֹן עִם מַחוֹג, אוֹ דַּמְיְנִי אֶחָד לְפָנַיִךְ.',
+      '<strong>הַבִּיטִי עַל הַמַּחוֹג הַקָּטָן</strong>. שִׂימִי לֵב לַתְּנוּעָה הַכִּמְעַט בִּלְתִּי נִרְאֵית.',
+      'בְּעֵת הַהִסְתַּכְּלוּת \u2013 <strong>הַזְכִּירִי לְעַצְמֵךְ:</strong> "אֲנִי כָּאן. עַכְשָׁיו. נוֹכַחַת."',
+      'כָּל מַחְשָׁבָה שֶׁמַּגִּיעָה \u2013 <strong>חִזְרִי בַּעֲדִינוּת</strong> לָרְאִיָּה בַּמַּחוֹג. שׁוּב וָשׁוּב.',
+      'הַהִסְתַּכְּלוּת הַזֹּאת <strong>מַשְׁקִיטָה רְצוֹנוֹת וּמַחְשָׁבוֹת</strong> \u2013 כְּפִי שֶׁלִּמֵּד הָאַדְמוֹ"ר.'
+    ],
+    verse:'כִּמְעַט אֵינוֹ זָז... וּבְכָךְ מַשְׁקִיט רְצוֹנוֹתָיו וּמַחְשְׁבוֹתָיו',
+    vsrc:'עִנְיַן הַהַשְׁקָטָה',
+    end:'"לְאַחַר הַהַשְׁקָטָה \u2013 זֶה צָרִיךְ לְהָבִיא לְאֵיזֶה מִין הַשְׁרָאָה מִמָּרוֹם"',
+    sp:'פִּתְחִי עֵינַיִם לְמֶחֱצָה. מִצְאִי שָׁעוֹן עִם מַחוֹג, אוֹ דַּמְיְנִי אֶחָד לְפָנַיִךְ. הַבִּיטִי עַל הַמַּחוֹג הַקָּטָן. שִׂימִי לֵב לַתְּנוּעָה הַכִּמְעַט בִּלְתִּי נִרְאֵית. בְּעֵת הַהִסְתַּכְּלוּת, הַזְכִּירִי לְעַצְמֵךְ: אֲנִי כָּאן, עַכְשָׁיו, נוֹכַחַת. כָּל מַחְשָׁבָה שֶׁמַּגִּיעָה, חִזְרִי בַּעֲדִינוּת לָרְאִיָּה בַּמַּחוֹג.'
+  },
+  { title:'מַחְשֶׁבֶת הַקְּדֻשָּׁה',
+    ph:'שְׁלַב ב \u00b7 מִיקּוּד',
+    sub:'הַכְנָסַת אוֹר קְדֻשָּׁה אֶל הַשֶּׁקֶט הַפְּנִימִי',
+    orb:'ה\' אֱלֹקַי אֱמֶת... הַבּוֹרֵא יְחִידִי... הַכֹּל הֶאָרַת אוֹרוֹ...', dur:720,
+    steps:[
+      '<strong>לְאַחַר שֶׁהִגַּעְתְּ לְשֶׁקֶט</strong> מְסֻיָּם \u2013 הַכְנִיסִי בַּעֲדִינוּת מַחְשָׁבָה שֶׁל קְדֻשָּׁה.',
+      '<strong>"ה\' אֱלֹקַי אֱמֶת"</strong> \u2013 חִשְׁבִי זֹאת בְּשֶׁקֶט, כְּמוֹ שֶׁרוֹחֵשׁ אוֹר בַּחֹשֶׁךְ.',
+      'לֹא בְּחֹזֶק, לֹא בִּצְעָקָה \u2013 <strong>"בְּאֹפֶן קַל מְאֹד"</strong> כִּי בְּחֹזֶק מְעוֹרֶרֶת אֶת הָאַנּוֹכִיּוּת.',
+      'דַּמְיְנִי <strong>מַחְשָׁבָה זַכָּה וּצְלוּלָה</strong> כְּמַיִם נְקִיִּים הַנִּכְנָסִים לִכְלִי רֵיק.',
+      '<strong>חִזְרִי עַל מַחְשֶׁבֶת הַקְּדֻשָּׁה</strong> עוֹד וָעוֹד, בִּנְשִׁימָה עֲדִינָה, בְּשֶׁקֶט גָּמוּר.'
+    ],
+    verse:'הַכְנָסַת מַחְשָׁבָה שֶׁל קְדֻשָּׁה אֶל תּוֹךְ הַחָלָל הָרֵיק',
+    vsrc:'עִנְיַן הַהַשְׁקָטָה',
+    end:'"וְעַכְשָׁיו לְקַשֵּׁר רֹאשׁוֹ הֶחָלוּל לְמַחְשָׁבָה אַחַת שֶׁל קְדֻשָּׁה"',
+    sp:'לְאַחַר שֶׁהִגַּעְתְּ לְשֶׁקֶט מְסֻיָּם, הַכְנִיסִי בַּעֲדִינוּת מַחְשָׁבָה שֶׁל קְדֻשָּׁה. הַשֵּׁם אֱלֹקַי אֱמֶת. חִשְׁבִי זֹאת בְּשֶׁקֶט. לֹא בְּחֹזֶק, לֹא בְּצְעָקָה. בְּאֹפֶן קַל מְאֹד. דַּמְיְנִי מַחְשָׁבָה זַכָּה וּצְלוּלָה כְּמַיִם נְקִיִּים הַנִּכְנָסִים לִכְלִי רֵיק.'
+  },
+  { title:'תְּפִלָּה מְמֻרְכֶּזֶת',
+    ph:'שְׁלַב ב \u00b7 מִיקּוּד',
+    sub:'חֲזָרָה עַל הַפָּסוּק הַמְּיֻחָד לְלֹא אַנּוֹכִיּוּת',
+    orb:'הוֹרֵנִי ה\' דַּרְכֶּךָ... אֲהַלֵּךְ בַּאֲמִתֶּךָ...', dur:900,
+    steps:[
+      '<strong>לְאַחַר שֶׁהִגַּעְתְּ לְשֶׁקֶט</strong> \u2013 הַתְחִילִי לוֹמַר בִּפְנִים בַּעֲדִינוּת אֶת הַפָּסוּק.',
+      '<strong>"הוֹרֵנִי ה\' דַּרְכֶּךָ, אֲהַלֵּךְ בַּאֲמִתֶּךָ, יַחֵד לְבָבִי לְיִרְאָה שְׁמֶךָ"</strong>',
+      '<strong>"בְּאֹפֶן קַל מְאֹד"</strong> \u2013 לֹא בְּהִתְאַמְּצוּת. כִּי בְּחֹזֶק \u2013 מְעוֹרֶרֶת הָאַנּוֹכִיּוּת.',
+      'חִזְרִי שׁוּב וָשׁוּב עַל הַפָּסוּק \u2013 <strong>בְּלֵב שָׁקֵט</strong>, לְלֹא צִפִּיָּה, לְלֹא "אֲנִי".',
+      'הָאַדְמוֹ"ר הִשְׁתַּמֵּשׁ בְּנִיגּוּן מַרְגִּיעַ עִם הַפָּסוּק הַזֶּה \u2013 <strong>תְּנִי לוֹ לִנְשֹׁם בְּתוֹכֵךְ</strong>.'
+    ],
+    verse:'הֽוֹרֵ֥נִי יְהֹוָ֗ה דַּרְכֶּ֗ךָ אֲהַלֵּ֥ךְ בַּאֲמִתֶּֽךָ יַחֵ֣ד לְבָבִ֣י לְיִרְאָ֣ה שְׁמֶֽ ךָ',
+    vsrc:'תְּהִלִּים פ"ו, י"א \u2013 הַפָּסוּק הַמְּיֻחָד שֶׁל הָאַדְמוֹ"ר',
+    end:'"צִוָּה לוֹמַר הַפָּסוּק הוֹרֵנִי ה\' דַּרְכֶּךָ בַּנִּיגּוּן הַמְּיֻחָד \u2013 בְּאֹפֶן קַל מְאֹד"',
+    sp:'לְאַחַר שֶׁהִגַּעְתְּ לְשֶׁקֶט, הַתְחִילִי לוֹמַר בִּפְנִים בַּעֲדִינוּת אֶת הַפָּסוּק. הוֹרֵנִי יְיָ דַּרְכֶּךָ. אֲהַלֵּךְ בַּאֲמִתֶּךָ. יַחֵד לְבָבִי לְיִרְאָה שְׁמֶךָ. בְּאֹפֶן קַל מְאֹד, לֹא בְּהִתְאַמְּצוּת. חִזְרִי שׁוּב וָשׁוּב עַל הַפָּסוּק, בְּלֵב שָׁקֵט, לְלֹא צִפִּיָּה, לְלֹא אֲנִי.'
+  },
+  { title:'מּוֹדָעוּת קוֹנְטֶמְפְּלָטִיבִית',
+    ph:'שְׁלַב ג \u00b7 הַשְׁרָאָה',
+    sub:'חִיזּוּק אֱמוּנָה יִרְאָה וְאַהֲבָה',
+    orb:'הַבּוֹרֵא הוּא הַנִּמְצָא הַיְּחִידִי... כָּל הָעוֹלָם הֶאָרַת אוֹרוֹ...', dur:900,
+    steps:[
+      '<strong>לְאַחַר הַשֶּׁקֶט</strong> \u2013 הָבִיאִי לַתּוֹדָעָה: "הַבּוֹרֵא הוּא הַנִּמְצָא הַיְּחִידִי בָּעוֹלָם."',
+      '<strong>"וְאֵין שׁוּם מְצִיאוּת זוּלָתוֹ"</strong> \u2013 אִמְרִי זֹאת בִּפְנִים. תַּרְגִּישִׁי מָה זֶה אוֹמֵר.',
+      '<strong>"וְכָל הָעוֹלָם וְכָל אֲשֶׁר בּוֹ \u2013 הֵם רַק הֶאָרַת ה\'"</strong> \u2013 הַבִּיטִי סְבִיב בְּעֵינֵי הַדִּמְיוֹן.',
+      'מָה מַרְגִּישָׁה הָאֱמוּנָה הַזֹּאת בַּגּוּף? <strong>שִׂימִי לֵב לַתְּחוּשָׁה</strong>. זוֹהִי "דְּבֵקוּת".',
+      'הָאַדְמוֹ"ר: <strong>"וְתִרְאִי אֶת ד\' שֶׁמְּמַלֵּא אֶת הָעוֹלָם... וְתִתְעַנְּגִי וְתִתְמוֹגְגִי"</strong>.'
+    ],
+    verse:'אֲנִי מַאֲמִינָה בֶּאֱמוּנָה שְׁלֵמָה שֶׁהַבּוֹרֵא הוּא הַנִּמְצָא הַיְּחִידִי בָּעוֹלָם',
+    vsrc:'לְשׁוֹן הַקֹּדֶשׁ שֶׁל הָאַדְמוֹ"ר',
+    end:'"אֲנִי מַאֲמִין שֶׁהַבּוֹרֵא הוּא הַנִּמְצָא הַיְּחִידִי, וְכָל אֲשֶׁר בָּעוֹלָם הוּא הֶאָרַת ה\'"',
+    sp:'לְאַחַר הַשֶּׁקֶט, הָבִיאִי לַתּוֹדָעָה: הַבּוֹרֵא הוּא הַנִּמְצָא הַיְּחִידִי בָּעוֹלָם. וְאֵין שׁוּם מְצִיאוּת זוּלָתוֹ. וְכָל הָעוֹלָם וְכָל אֲשֶׁר בּוֹ, הֵם רַק הֶאָרַת הַשֵּׁם יִתְבָּרַךְ. מָה מַרְגִּישָׁה הָאֱמוּנָה הַזֹּאת בַּגּוּף? שִׂימִי לֵב לַתְּחוּשָׁה. זוֹהִי דְּבֵקוּת.'
+  },
+  { title:'פְּתִיחָה לְהַשְׁרָאָה מִמָּרוֹם',
+    ph:'שְׁלַב ג \u00b7 הַשְׁרָאָה',
+    sub:'יְצִירַת מָקוֹם לָאוֹר הָאֱלֹהִי \u2013 מוֹדָעוּת פְּתוּחָה',
+    orb:'פְּתוּחָה... קוֹלֶטֶת... שְׁקֵטָה... מוּכָנָה לְקַבֵּל...', dur:1200,
+    steps:[
+      '<strong>לְאַחַר שֶׁהִגַּעְתְּ לְשֶׁקֶט</strong> מָלֵא \u2013 פָּשׁוּט הִישָּׁאֲרִי פְּתוּחָה. לְלֹא צִפִּיָּה סְפֵצִיפִית.',
+      '<strong>"חֲלוֹם אֶחָד מִשִּׁשִּׁים בִּנְבוּאָה"</strong> \u2013 בְּמַצָּב שָׁקֵט כָּזֶה יְכוֹלָה לָבוֹא הַשְׁרָאָה.',
+      'אִם עוֹלָה מַחְשָׁבָה שֶׁל קְדֻשָּׁה, רֶגֶשׁ שֶׁל אַהֲבָה \u2013 <strong>זוֹהִי הַ"נְּבוּאָה" שֶׁל יָמֵינוּ</strong>.',
+      'אַל תִּרְדְּפִי אַחַר הַ"חֲוִיָּה". רַק <strong>הִישָּׁאֲרִי נוֹכַחַת, שְׁקֵטָה, מוּדַעַת</strong>.',
+      'הָאַדְמוֹ"ר: <strong>"כָּל הַשָּׂגָה שֶׁל קְדֻשָּׁה שֶׁבָּאָה בְּלֵב וּמֹחַ הַיִּשְׂרְאֵלִי \u2013 מִין הִתְגַּלּוּת מִן הַשָּׁמַיִם הוּא"</strong>.'
+    ],
+    verse:'כָּל הַשָּׂגָה שֶׁל קְדֻשָּׁה שֶׁבָּאָה בְּשֶׁקֶט \u2013 מִין הִתְגַּלּוּת מִן הַשָּׁמַיִם',
+    vsrc:'דֶּרֶךְ הַמֶּלֶךְ',
+    end:'"כָּל הַשָּׂגָה וְרַעְיוֹן שֶׁל קְדֻשָּׁה שֶׁבָּא בְּלֵב וּמֹחַ הַיִּשְׂרְאֵלִי \u2013 מִין נְבוּאָה וְהִתְגַּלּוּת מִן הַשָּׁמַיִם הוּא"',
+    sp:'לְאַחַר שֶׁהִגַּעְתְּ לְשֶׁקֶט מָלֵא, פָּשׁוּט הִישָּׁאֲרִי פְּתוּחָה. לְלֹא צִפִּיָּה סְפֵצִיפִית. אִם עוֹלָה מַחְשָׁבָה שֶׁל קְדֻשָּׁה, רֶגֶשׁ שֶׁל אַהֲבָה, הֲבָנָה חֲדָשָׁה, זוֹהִי הַנְּבוּאָה שֶׁל יָמֵינוּ. אַל תִּרְדְּפִי אַחַר הַחֲוִיָּה. רַק הִישָּׁאֲרִי נוֹכַחַת, שְׁקֵטָה, מוּדַעַת.'
+  },
+  { title:'אִיזּוּן קוֹנָאטִיבִי קְבוּצָתִי',
+    ph:'שְׁלַב ג \u00b7 הַשְׁרָאָה',
+    sub:'הַכְוָנַת הָרָצוֹן לְשִׂמְחָה וּבְרִיאוּת \u2013 "בְּנֵי מַחְשָׁבָה טוֹבָה"',
+    orb:'מְכַוֶּנֶת אֶת רְצוֹנִי לַטּוֹב... לְשִׂמְחָה... לַאֲחֵרִים...', dur:900,
+    steps:[
+      '<strong>בְּתוֹךְ הַשֶּׁקֶט</strong> \u2013 כַּוְּנִי אֶת רְצוֹנֵךְ לַטּוֹב. לֹא לִרְצוֹת לְעַצְמֵךְ בִּלְבַד.',
+      'הָאַדְמוֹ"ר יִסֵּד חֲבוּרַת <strong>"בְּנֵי מַחְשָׁבָה טוֹבָה"</strong> \u2013 קְהִלָּה שֶׁל מַחְשָׁבוֹת זַכּוֹת.',
+      '<strong>שִׁלְחִי מַחְשָׁבָה טוֹבָה</strong> אֶל מִישֶׁהוּ שֶׁאוֹהֶבֶת, אֶל הַקְּהִלָּה, אֶל הָעוֹלָם.',
+      '<strong>"מַחְשָׁבָה טְהוֹרָה תְּלוּיָה בְּהִתְעוֹרְרוּת, וְהַהִתְעוֹרְרוּת בַּמַּחְשָׁבָה הַטְּהוֹרָה"</strong> \u2013 מַעְגָּל מְחַזֵּק.',
+      'תַּרְגִּישִׁי כֵּיצַד <strong>הַכְוָנַת הָרָצוֹן לְשִׂמְחָה וּלִבְרִיאוּת</strong> שֶׁל אֲחֵרִים מְחַזֶּקֶת אוֹתָךְ.'
+    ],
+    verse:'כִּשְׁמָהּ כֵּן הִיא \u2013 בְּנֵי מַחְשָׁבָה טוֹבָה',
+    vsrc:'סֵפֶר בְּנֵי מַחְשָׁבָה טוֹבָה',
+    end:'"יְסוֹד חֲבוּרָתֵנוּ \u2013 לְכַוֵּן מַחְשָׁבָה זַכָּה, כְּבֵן שִׂיחַ יָשִׁיר עִם הַקָּדוֹשׁ בָּרוּךְ הוּא כְּאָבִיו"',
+    sp:'בְּתוֹךְ הַשֶּׁקֶט, כַּוְּנִי אֶת רְצוֹנֵךְ לַטּוֹב. לֹא לִרְצוֹת לְעַצְמֵךְ בִּלְבַד. שִׁלְחִי מַחְשָׁבָה טוֹבָה אֶל מִישֶׁהוּ שֶׁאוֹהֶבֶת, אֶל הַקְּהִלָּה, אֶל הָעוֹלָם. מַחְשָׁבָה טְהוֹרָה תְּלוּיָה בְּהִתְעוֹרְרוּת, וְהַהִתְעוֹרְרוּת בַּמַּחְשָׁבָה הַטְּהוֹרָה. מַעְגָּל הַמְּחַזֵּק אֶת עַצְמוֹ.'
+  }
+];
+
+var FULL = [
+  {ph:'שְׁלַב א \u2013 הֲכָנָה', t:'יְשִׁיבָה וּפְתִיחָה', b:'שְׁבִי בְּנוֹחוּת עִם גַּב יָשָׁר. קְחִי שָׁלוֹשׁ נְשִׁימוֹת עֲמֻקּוֹת. עִצְמִי עֵינַיִם. אִמְרִי בִּפְנִים: אֲנִי כָּאן, עַכְשָׁיו, לִפְנֵי הַבּוֹרֵא.', sp:'שְׁבִי בְּנוֹחוּת עִם גַּב יָשָׁר. קְחִי שָׁלוֹשׁ נְשִׁימוֹת עֲמֻקּוֹת. עִצְמִי עֵינַיִם בַּעֲדִינוּת. אִמְרִי בִּפְנִים: אֲנִי כָּאן, עַכְשָׁיו, לִפְנֵי הַבּוֹרֵא.'},
+  {ph:'שְׁלַב א \u2013 הֲכָנָה', t:'רְאִיַּת הַמַּחְשָׁבוֹת', b:'הִסְתַּכְּלִי עַל מַחְשְׁבוֹתַיִךְ כְּצוֹפָה מִבַּחוּץ. לֹא לַעֲצוֹר \u2013 רַק לִרְאוֹת. כְּמוֹ שֶׁצּוֹפִים בְּנָהָר זוֹרֵם.', sp:'הִסְתַּכְּלִי עַל מַחְשְׁבוֹתַיִךְ כְּצוֹפָה מִבַּחוּץ. לֹא לַעֲצוֹר, רַק לִרְאוֹת. כְּמוֹ שֶׁצּוֹפִים בְּנָהָר זוֹרֵם.'},
+  {ph:'שְׁלַב א \u2013 הֲכָנָה', t:'הַשְׁקָטַת הַמִּלִּים', b:'"לְאַט לְאַט" \u2013 תְּנִי לַדְּבָרִים הַפְּנִימִיִּים לְהַפְסִיק. לֹא בְּכֹחַ. כָּל נְשִׁיפָה \u2013 שִׁחְרוּר שֶׁל מִילָּה.', sp:'לְאַט לְאַט. תְּנִי לַדְּבָרִים הַפְּנִימִיִּים לְהַפְסִיק. לֹא בְּכֹחַ. לֹא בְּהִתְאַמְּצוּת. כָּל נְשִׁיפָה הִיא שִׁחְרוּר שֶׁל מִילָּה.'},
+  {ph:'שְׁלַב א \u2013 הֲכָנָה', t:'הַרְגָּעָה עַצְמִית', b:'"בֶּרוּהִיג דִי" \u2013 פָּשׁוּט לְהֵירָגַע. כְּמַטְאֲטֵא עָדִין הַמְנַקֶּה אֶת הַמֹּחַ. כָּל מַחְשָׁבָה שֶׁמַּגִּיעָה \u2013 תְּנִי לָהּ לַעֲבוֹר.', sp:'פָּשׁוּט הֵירָגְעִי. כְּמַטְאֲטֵא עָדִין הַמְנַקֶּה בַּעֲדִינוּת אֶת הַמֹּחַ. כָּל מַחְשָׁבָה שֶׁמַּגִּיעָה, תְּנִי לָהּ לַעֲבוֹר.'},
+  {ph:'שְׁלַב ב \u2013 מִיקּוּד', t:'בִּטּוּל הַיֵּשׁוּת', b:'שַׁחְרְרִי אֶת הַחֲשִׁיבָה עַל "אֲנִי". כְּנִיסָה לְשֶׁקֶט שֶׁבֵּין עֵרוּת לְשֵׁינָה. "כֵּיוָן שֶׁאֵין לוֹ דַּעַת לְעַצְמוֹ \u2013 תִּשְׁרֶה הַשְׁרָאָה מִמָּרוֹם."', sp:'שַׁחְרְרִי אֶת הַחֲשִׁיבָה עַל עַצְמֵךְ. כְּנִיסָה לְשֶׁקֶט שֶׁבֵּין עֵרוּת לְשֵׁינָה. כֵּיוָן שֶׁאֵין לָהּ דַּעַת לְעַצְמָהּ, אֶפְשָׁר שֶׁתִּשְׁרֶה הַשְׁרָאָה מִמָּרוֹם.'},
+  {ph:'שְׁלַב ב \u2013 מִיקּוּד', t:'מַחְשֶׁבֶת הַקְּדֻשָּׁה', b:'הַכְנִיסִי בַּעֲדִינוּת: "הַשֵּׁם אֱלֹקַי אֱמֶת". בְּאֹפֶן קַל מְאֹד \u2013 לֹא בְּחֹזֶק. כְּמַיִם נְקִיִּים הַנִּכְנָסִים לִכְלִי רֵיק.', sp:'הַכְנִיסִי בַּעֲדִינוּת מַחְשָׁבָה שֶׁל קְדֻשָּׁה. הַשֵּׁם אֱלֹקַי אֱמֶת. בְּאֹפֶן קַל מְאֹד. לֹא בְּחֹזֶק, לֹא בְּהִתְאַמְּצוּת.'},
+  {ph:'שְׁלַב ג \u2013 הַשְׁרָאָה', t:'פְּסוּק הַהַשְׁקָטָה', b:'"הוֹרֵנִי ה\' דַּרְכֶּךָ, אֲהַלֵּךְ בַּאֲמִתֶּךָ, יַחֵד לְבָבִי לְיִרְאָה שְׁמֶךָ" \u2013 חִזְרִי שׁוּב וָשׁוּב בַּעֲדִינוּת.', sp:'הוֹרֵנִי יְיָ דַּרְכֶּךָ. אֲהַלֵּךְ בַּאֲמִתֶּךָ. יַחֵד לְבָבִי לְיִרְאָה שְׁמֶךָ. חִזְרִי עַל הַפָּסוּק שׁוּב וָשׁוּב בַּעֲדִינוּת.'},
+  {ph:'שְׁלַב ג \u2013 הַשְׁרָאָה', t:'חִיזּוּק הָאֱמוּנָה', b:'"הַבּוֹרֵא הוּא הַנִּמְצָא הַיְּחִידִי בָּעוֹלָם. וְאֵין שׁוּם מְצִיאוּת זוּלָתוֹ. וְכָל הָעוֹלָם \u2013 רַק הֶאָרַת ה\'."', sp:'הַבּוֹרֵא הוּא הַנִּמְצָא הַיְּחִידִי בָּעוֹלָם. וְאֵין שׁוּם מְצִיאוּת זוּלָתוֹ. כָּל הָעוֹלָם וְכָל אֲשֶׁר בּוֹ הֵם רַק הֶאָרַת הַשֵּׁם יִתְבָּרַךְ.'},
+  {ph:'שְׁלַב ג \u2013 הַשְׁרָאָה', t:'פְּתִיחָה לְהַשְׁרָאָה', b:'הִישָּׁאֲרִי פְּתוּחָה. לְלֹא צִפִּיָּה. כָּל הֲבָנָה שֶׁל קְדֻשָּׁה שֶׁתָּבוֹא \u2013 הִיא מִין הִתְגַּלּוּת מִן הַשָּׁמַיִם.', sp:'הִישָּׁאֲרִי פְּתוּחָה. לְלֹא צִפִּיָּה. כָּל הֲבָנָה שֶׁל קְדֻשָּׁה שֶׁתָּבוֹא הִיא מִין הִתְגַּלּוּת מִן הַשָּׁמַיִם.'}
+];
+
+// ── STATE ──
+var curEx=-1, tmID=null, elapsed=0, total=0, running=false, fullOn=false;
+var speeds=[{r:0.6,l:'אִיטִּי מְאֹד'},{r:0.75,l:'אִיטִּי'},{r:0.9,l:'רָגִיל'},{r:1.1,l:'מָהִיר'}];
+var spdIdx=2;
+
+// ── SCREENS ──
+function go(id){
+  var ss=document.querySelectorAll('.sc');
+  for(var i=0;i<ss.length;i++) ss[i].classList.remove('on');
+  document.getElementById(id).classList.add('on');
+  var nb=document.getElementById('navBack');
+  nb.className=(id!=='sHome')?'show':'';
+}
+function goBack(){ stopAll(); go('sMenu'); }
+
+// ── TTS ──
+var femaleVoice = null;
+
+function loadVoices(){
+  var voices = window.speechSynthesis.getVoices();
+  // חיפוש קול עברי נשי
+  var hePref = ['Carmit','Tami','he-IL','he_IL'];
+  for(var p=0; p<hePref.length; p++){
+    for(var v=0; v<voices.length; v++){
+      if(voices[v].lang && voices[v].lang.indexOf('he')>-1 && voices[v].name.indexOf(hePref[p])>-1){
+        femaleVoice = voices[v]; return;
+      }
+    }
+  }
+  // כל קול עברי
+  for(var v=0; v<voices.length; v++){
+    if(voices[v].lang && voices[v].lang.indexOf('he')>-1){
+      femaleVoice = voices[v]; return;
+    }
+  }
+}
+window.speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
+function say(txt, cb){
+  if(!window.speechSynthesis){ if(cb) cb(); return; }
+  window.speechSynthesis.cancel();
+
+  // פיצול למשפטים למניעת הדילוג של Chrome
+  var sentences = txt.split(/(?<=[.!?])\s+/).filter(function(s){ return s.trim().length > 0; });
+  if(sentences.length === 0){ if(cb) cb(); return; }
+
+  var idx = 0;
+
+  function speakNext(){
+    if(idx >= sentences.length){
+      vonOff(false);
+      if(cb) cb();
+      return;
+    }
+    var u = new SpeechSynthesisUtterance(sentences[idx]);
+    u.lang = 'he-IL';
+    u.rate = speeds[spdIdx].r;
+    u.pitch = 1;
+    u.volume = 1;
+    if(femaleVoice) u.voice = femaleVoice;
+
+    u.onstart = function(){ vonOff(true); };
+    u.onend = function(){ idx++; speakNext(); };
+    u.onerror = function(){ idx++; speakNext(); };
+
+    // Chrome keepalive – מניעת קיפאון
+    var keepAlive = setInterval(function(){
+      if(!window.speechSynthesis.speaking) clearInterval(keepAlive);
+      else{ window.speechSynthesis.pause(); window.speechSynthesis.resume(); }
+    }, 10000);
+
+    u.onend = function(){ clearInterval(keepAlive); idx++; speakNext(); };
+    u.onerror = function(){ clearInterval(keepAlive); idx++; speakNext(); };
+
+    window.speechSynthesis.speak(u);
+  }
+
+  speakNext();
+}
+function vonOff(on){
+  var bars=document.querySelectorAll('.vb');
+  for(var i=0;i<bars.length;i++){
+    if(on) bars[i].classList.add('on');
+    else bars[i].classList.remove('on');
+  }
+  var st=document.getElementById('vSt');
+  if(st) st.textContent=on?'מְדַבֶּרֶת...':'';
+}
+
+// ── SPEED ──
+function cycleSpeed(){
+  spdIdx=(spdIdx+1)%speeds.length;
+  var btn=document.getElementById('btnSpd');
+  btn.textContent='\u266a מַהִירוּת: '+speeds[spdIdx].l;
+  // restart current speech at new speed if speaking
+  if(window.speechSynthesis && window.speechSynthesis.speaking){
+    window.speechSynthesis.cancel();
+    if(curEx>=0){ say(EX[curEx].sp); }
+  }
+}
+
+function reSpeak(){
+  if(curEx<0||curEx>=EX.length) return;
+  say(EX[curEx].sp);
+}
+function playNigun(){
+  say('הוֹרֵנִי יְיָ דַּרְכֶּךָ, אֲהַלֵּךְ בַּאֲמִתֶּךָ, יַחֵד לְבָבִי לְיִרְאָה שְׁמֶךָ');
+}
+
+// ── EXERCISE ──
+function openEx(idx){
+  if(idx===10){ buildFull(); go('sFull'); return; }
+  curEx=idx; fullOn=false;
+  var ex=EX[idx];
+  document.getElementById('mPh').textContent=ex.ph;
+  document.getElementById('mTi').textContent=ex.title;
+  document.getElementById('mSu').textContent=ex.sub;
+  document.getElementById('oTx').textContent=ex.orb;
+  var box=document.getElementById('sBox');
+  box.innerHTML='';
+  for(var i=0;i<ex.steps.length;i++){
+    var d=document.createElement('div');
+    d.className='sItem';
+    d.innerHTML='<div class="sDot"></div><div class="sTxt">'+ex.steps[i]+'</div>';
+    box.appendChild(d);
+    (function(el,dl){ setTimeout(function(){ el.classList.add('show'); },dl); })(d,i*270+300);
+  }
+  document.getElementById('vMain').textContent=ex.verse;
+  document.getElementById('vSrc').textContent=ex.vsrc;
+  total=ex.dur; elapsed=0;
+  updTimer();
+  document.getElementById('tFill').style.width='0%';
+  go('sMed');
+  running=false;
+  document.getElementById('btnPP').innerHTML='&#9654;';
+  // הפעלת הניגון אוטומטית
+  var audio=document.getElementById('nigunAudio');
+  if(audio){ audio.currentTime=0; audio.play(); nigunPlaying=true; setPlayerBtn('&#9646;&#9646;'); }
+  setTimeout(function(){
+    startTimer();
+    say(ex.sp);
+  },1100);
+}
+
+// ── TIMER ──
+function startTimer(){
+  running=true;
+  document.getElementById('btnPP').innerHTML='&#9646;&#9646;';
+  tmID=setInterval(function(){
+    elapsed++;
+    updTimer();
+    document.getElementById('tFill').style.width=Math.min((elapsed/total)*100,100)+'%';
+    if(elapsed>=total){ clearInterval(tmID); running=false; done(); }
+  },1000);
+}
+function pauseTimer(){
+  clearInterval(tmID); running=false;
+  document.getElementById('btnPP').innerHTML='&#9654;';
+  if(window.speechSynthesis) window.speechSynthesis.pause();
+}
+function togglePP(){
+  if(running) pauseTimer();
+  else{ if(window.speechSynthesis) window.speechSynthesis.resume(); startTimer(); }
+}
+function updTimer(){
+  var m=Math.floor(elapsed/60), s=elapsed%60;
+  document.getElementById('tNum').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+function done(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  var e=(curEx>=0&&curEx<EX.length)?EX[curEx].end:'זֶה אֵלִי וְאַנְוֵהוּ';
+  say('יָפֶה מְאֹד. הַתַּרְגִּיל הוּשְׁלַם. '+e);
+  setTimeout(function(){ go('sComp'); },1800);
+}
+function finish(){ stopAll(); go('sComp'); }
+function stopAll(){
+  clearInterval(tmID);
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  var audio=document.getElementById('nigunAudio');
+  if(audio){ audio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
+  running=false; fullOn=false;
+}
+
+// ── FULL SESSION ──
+function buildFull(){
+  var w=document.getElementById('fWrap');
+  w.innerHTML='';
+  var lastPh='';
+  for(var i=0;i<FULL.length;i++){
+    var s=FULL[i];
+    if(s.ph!==lastPh){
+      lastPh=s.ph;
+      var pd=document.createElement('div');
+      pd.className='pDiv';
+      pd.innerHTML='<div class="pLine"></div><div class="pTxt">'+s.ph+'</div><div class="pLine"></div>';
+      w.appendChild(pd);
+    }
+    var d=document.createElement('div');
+    d.className='fStep show'; d.id='fs'+i;
+    d.innerHTML='<div class="fHead"><div class="fN">'+(i+1)+'</div><div class="fTit">'+s.t+'</div></div><div class="fBody">'+s.b+'</div>';
+    w.appendChild(d);
+  }
+  document.getElementById('nBox').style.display='none';
+}
+function startFull(){
+  fullOn=true;
+  var steps=document.querySelectorAll('.fStep');
+  for(var i=0;i<steps.length;i++) steps[i].classList.remove('show');
+  document.getElementById('nBox').style.display='none';
+  document.getElementById('sFull').scrollTop=0;
+  say('מַתְחִילִים אֶת סֵדֶר הַהַשְׁקָטָה הַשָּׁלֵם. לְפִי תּוֹרַת הָאַדְמוֹ"ר הַקָּדוֹשׁ מִפְּיָאסֶצְ\'נָה. שְׁבִי בְּנוֹחוּת וְנַתְחִיל.',function(){
+    setTimeout(function(){ runFS(0); },2000);
+  });
+}
+function runFS(idx){
+  if(!fullOn) return;
+  if(idx>=FULL.length){
+    document.getElementById('nBox').style.display='block';
+    document.getElementById('nBox').scrollIntoView({behavior:'smooth'});
+    say('הוֹרֵנִי יְיָ דַּרְכֶּךָ. אֲהַלֵּךְ בַּאֲמִתֶּךָ. יַחֵד לְבָבִי לְיִרְאָה שְׁמֶךָ. סֵדֶר הַהַשְׁקָטָה הוּשְׁלַם. בְּרוּכָה שֶׁבָּאת.');
+    return;
+  }
+  var el=document.getElementById('fs'+idx);
+  if(el){ el.classList.add('show'); el.scrollIntoView({behavior:'smooth',block:'center'}); }
+  say(FULL[idx].sp,function(){
+    if(fullOn) setTimeout(function(){ runFS(idx+1); },4000);
+  });
+}
+
+// ── NIGUN PLAYER ──
+var nigunPlaying = false;
+
+function fmtTime(s){
+  var m=Math.floor(s/60); var sec=Math.floor(s%60);
+  return m+':'+(sec<10?'0':'')+sec;
+}
+function toggleNigun(src){
+  var audio=document.getElementById('nigunAudio');
+  if(!audio) return;
+  if(nigunPlaying){ audio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
+  else { audio.play(); nigunPlaying=true; setPlayerBtn('&#9646;&#9646;'); }
+}
+function setPlayerBtn(icon){
+  ['homeBtnPl','compBtnPl','medBtnPl'].forEach(function(id){
+    var b=document.getElementById(id); if(b) b.innerHTML=icon;
+  });
+}
+function seekNigun(e,trackId){
+  var audio=document.getElementById('nigunAudio');
+  if(!audio||!audio.duration) return;
+  var track=document.getElementById(trackId);
+  var rect=track.getBoundingClientRect();
+  audio.currentTime=((e.clientX-rect.left)/rect.width)*audio.duration;
+}
+(function(){
+  var audio=document.getElementById('nigunAudio');
+  if(!audio) return;
+  audio.addEventListener('loadedmetadata',function(){
+    var dur=fmtTime(audio.duration);
+    ['homeDur','compDur','medDur'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent=dur; });
+  });
+  audio.addEventListener('timeupdate',function(){
+    if(!audio.duration) return;
+    var pct=(audio.currentTime/audio.duration)*100;
+    var cur=fmtTime(audio.currentTime);
+    ['homeFill','compFill','medFill'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.width=pct+'%'; });
+    ['homeCur','compCur','medCur'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent=cur; });
+  });
+  audio.addEventListener('ended',function(){ nigunPlaying=false; setPlayerBtn('&#9654;'); });
+  audio.volume=0.8;
+})();
+
+buildFull();</script>
+</body>
+</html>
