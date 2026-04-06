@@ -747,6 +747,7 @@ var nigunPlaying = false;
 // יצירת אלמנט אודיו דרך JS בלבד – מונע הצגת סרגל דפדפן
 var nigunAudio = new Audio('horeni_nigun.mp3');
 nigunAudio.preload = 'none';
+nigunAudio.loop = true;
 
 // נגן מיני קבוע בפינה שמאל-תחתית
 var miniPlayer = document.createElement('div');
@@ -790,7 +791,6 @@ function seekNigun(e,trackId){
     ['homeFill','compFill','medFill'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.width=pct+'%'; });
     ['homeCur','compCur','medCur'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent=cur; });
   });
-  nigunAudio.addEventListener('ended',function(){ nigunPlaying=false; setPlayerBtn('&#9654;'); });
   nigunAudio.volume=0.8;
 })();
 
