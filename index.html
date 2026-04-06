@@ -202,11 +202,7 @@ input[type=range].volSlider::-ms-thumb{width:10px;height:10px;border-radius:50%;
   </div>
   <p class="hVerse">"בְּעֵת שֶׁהָאָדָם יֵשׁ וְדַעְתּוֹ וּמַחְשְׁבוֹתָיו שׁוֹקְטִים – אֶפְשָׁר שֶׁתִּשְׁרֶה עָלָיו הַשְׁרָאָה מִמָּרוֹם"</p>
   <p style="position:absolute;bottom:6px;left:0;right:0;text-align:center;font-family:var(--fs);font-size:12px;font-style:italic;color:var(--muted);opacity:.55;padding:0 28px;z-index:1">"הַדָּבָר הַכִּי גָּדוֹל בָּעוֹלָם הוּא לַעֲשׂוֹת טוֹבָה לְמִישֶׁהוּ אַחֵר" – הָאַדְמוֹ"ר מִפְּיָאסֶצְ'נָה</p>
-  <audio id="nigunAudio" src="horeni_nigun.mp3" preload="none" style="display:none;visibility:hidden;position:absolute;width:0;height:0"></audio>
-  <div style="position:fixed;bottom:18px;left:18px;z-index:999;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.92);border:1px solid var(--border);padding:8px 12px;backdrop-filter:blur(4px)">
-    <button onclick="toggleNigun()" id="homeBtnPl" style="border:1px solid var(--pink-dp);background:none;color:var(--pink-dp);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">&#9654;</button>
-    <span style="font-family:var(--fs);font-size:11px;font-style:italic;color:var(--muted);white-space:nowrap">הוֹרֵנִי ה' דַּרְכֶּךָ</span>
-  </div>
+
 </div>
 
 <!-- MENU -->
@@ -652,8 +648,8 @@ function openEx(idx){
   running=false;
   document.getElementById('btnPP').innerHTML='&#9654;';
   // הפעלת הניגון אוטומטית
-  var audio=document.getElementById('nigunAudio');
-  if(audio){ audio.currentTime=0; audio.play(); nigunPlaying=true; setPlayerBtn('&#9646;&#9646;'); }
+  
+  if(nigunAudio){ nigunAudio.currentTime=0; nigunAudio.play(); nigunPlaying=true; setPlayerBtn('&#9646;&#9646;'); }
   setTimeout(function(){
     startTimer();
     say(ex.sp);
@@ -694,8 +690,8 @@ function finish(){ stopAll(); go('sComp'); }
 function stopAll(){
   clearInterval(tmID);
   if(window.speechSynthesis) window.speechSynthesis.cancel();
-  var audio=document.getElementById('nigunAudio');
-  if(audio){ audio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
+  
+  if(nigunAudio){ nigunAudio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
   running=false; fullOn=false;
 }
 
@@ -748,15 +744,25 @@ function runFS(idx){
 // ── NIGUN PLAYER ──
 var nigunPlaying = false;
 
+// יצירת אלמנט אודיו דרך JS בלבד – מונע הצגת סרגל דפדפן
+var nigunAudio = new Audio('horeni_nigun.mp3');
+nigunAudio.preload = 'none';
+
+// נגן מיני קבוע בפינה שמאל-תחתית
+var miniPlayer = document.createElement('div');
+miniPlayer.style.cssText = 'position:fixed;bottom:18px;left:18px;z-index:999;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.92);border:1px solid rgba(201,168,76,.28);padding:8px 12px;backdrop-filter:blur(4px)';
+miniPlayer.innerHTML = '<button id="homeBtnPl" onclick="toggleNigun()" style="border:1px solid #E891AD;background:none;color:#E891AD;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">&#9654;</button><span style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:11px;font-style:italic;color:#9A7080;white-space:nowrap">הוֹרֵנִי ה\' דַּרְכֶּךָ</span>';
+document.body.appendChild(miniPlayer);
+
 function fmtTime(s){
   var m=Math.floor(s/60); var sec=Math.floor(s%60);
   return m+':'+(sec<10?'0':'')+sec;
 }
 function toggleNigun(){
-  var audio=document.getElementById('nigunAudio');
-  if(!audio) return;
-  if(nigunPlaying){ audio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
-  else { audio.play(); nigunPlaying=true; setPlayerBtn('&#9646;&#9646;'); }
+  
+  if(!nigunAudio) return;
+  if(nigunPlaying){ nigunAudio.pause(); nigunPlaying=false; setPlayerBtn('&#9654;'); }
+  else { nigunAudio.play(); nigunPlaying=true; setPlayerBtn('&#9646;&#9646;'); }
 }
 function setPlayerBtn(icon){
   ['homeBtnPl','compBtnPl','medBtnPl'].forEach(function(id){
@@ -764,28 +770,28 @@ function setPlayerBtn(icon){
   });
 }
 function seekNigun(e,trackId){
-  var audio=document.getElementById('nigunAudio');
-  if(!audio||!audio.duration) return;
+  
+  if(!nigunAudio||!nigunAudio.duration) return;
   var track=document.getElementById(trackId);
   var rect=track.getBoundingClientRect();
-  audio.currentTime=((e.clientX-rect.left)/rect.width)*audio.duration;
+  nigunAudio.currentTime=((e.clientX-rect.left)/rect.width)*nigunAudio.duration;
 }
 (function(){
-  var audio=document.getElementById('nigunAudio');
-  if(!audio) return;
-  audio.addEventListener('loadedmetadata',function(){
-    var dur=fmtTime(audio.duration);
+  
+  if(!nigunAudio) return;
+  nigunAudio.addEventListener('loadedmetadata',function(){
+    var dur=fmtTime(nigunAudio.duration);
     ['homeDur','compDur','medDur'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent=dur; });
   });
-  audio.addEventListener('timeupdate',function(){
-    if(!audio.duration) return;
-    var pct=(audio.currentTime/audio.duration)*100;
-    var cur=fmtTime(audio.currentTime);
+  nigunAudio.addEventListener('timeupdate',function(){
+    if(!nigunAudio.duration) return;
+    var pct=(nigunAudio.currentTime/nigunAudio.duration)*100;
+    var cur=fmtTime(nigunAudio.currentTime);
     ['homeFill','compFill','medFill'].forEach(function(id){ var el=document.getElementById(id); if(el) el.style.width=pct+'%'; });
     ['homeCur','compCur','medCur'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent=cur; });
   });
-  audio.addEventListener('ended',function(){ nigunPlaying=false; setPlayerBtn('&#9654;'); });
-  audio.volume=0.8;
+  nigunAudio.addEventListener('ended',function(){ nigunPlaying=false; setPlayerBtn('&#9654;'); });
+  nigunAudio.volume=0.8;
 })();
 
 buildFull();</script>
