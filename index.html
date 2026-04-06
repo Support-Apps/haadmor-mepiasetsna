@@ -658,9 +658,8 @@ function startExerciseNow(){
   document.getElementById('btnStart').style.display='none';
   document.getElementById('ctrlRunning').style.display='block';
   startTimer();
-  setTimeout(function(){
-    if(curEx>=0 && curEx<EX.length) say(EX[curEx].sp);
-  }, 1000);
+  // מובייל דורש הפעלה ישירה מלחיצה – ללא setTimeout
+  if(curEx>=0 && curEx<EX.length) say(EX[curEx].sp);
 }
 
 // ── TIMER ──
